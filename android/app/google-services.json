@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "614644848015",
+    "firebase_url": "https://srijanju20.firebaseio.com",
+    "project_id": "srijanju20",
+    "storage_bucket": "srijanju20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614644848015:android:eb947e17dd276dbf29e7fa",
+        "android_client_info": {
+          "package_name": "app.srijanju.in.srijan_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614644848015-l3oi1ng0se02p8nlagu3pj76a64qk49l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.srijanju.in.srijan_app",
+            "certificate_hash": "f1c9acf552462785ae8a32ecd3a1062de636cb10"
+          }
+        },
+        {
+          "client_id": "614644848015-ci0vn0p0g5st7u1t64jl29588qjm3ku1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAygELjzYszbGN3b7na4sLB5uMJqwCTvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614644848015-ci0vn0p0g5st7u1t64jl29588qjm3ku1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "614644848015-o61jus6b399fsj6j7lnsjko1pv4tfn54.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "in.srijanju.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
