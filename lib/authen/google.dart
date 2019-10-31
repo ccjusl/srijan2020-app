@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:srijan_app/pages/menu.dart';
 import 'dart:io';
 
 import 'package:srijan_app/pages/signUp.dart';
@@ -39,7 +40,7 @@ class GoogleAuth {
     }
     else {
       print('old user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName);
+      Navigator.pushNamed(GoogleAuth.context, ContentsPage.RouteName);
     }
     final FirebaseUser user = authResult.user;
 

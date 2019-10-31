@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:srijan_app/pages/login.dart';
 import 'package:srijan_app/pages/signUp.dart';
+import 'package:srijan_app/pages/menu.dart';
 
 
 class Router{
@@ -15,6 +16,10 @@ class Router{
 
       case SignUp.RouteName:
         return MaterialPageRoute( builder: (_) => SignUp());
+        break;
+
+      case ContentsPage.RouteName:
+        return MaterialPageRoute(builder: (_)=>ContentsPage());
         break;
 
       default:
