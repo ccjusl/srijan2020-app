@@ -26,12 +26,4 @@ The app should run on the terminal
 
 ![Login](screenshots/Screenshot_1572642923.png)
 
-![next](screenshots/Screenshot_1572642916.png)
-
-![menu](screenshots/Screenshot_1572642906.png)
-
-![form](screenshots/Screenshot_1572645083.png)
-
-![workshops](screenshots/Screenshot_1572642847.png)
-
 ![nivt](screenshots/Screenshot_1572642783.png)
