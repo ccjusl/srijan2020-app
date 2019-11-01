@@ -6,6 +6,9 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'package:srijan_app/pages/login.dart';
 import 'package:srijan_app/pages/signUp.dart';
+import 'package:srijan_app/pages/menu.dart';
+
+
 
 class FbReturn{
   final AuthResult auth;
@@ -45,6 +48,7 @@ class FBAuth {
     else {
       print('old user');
       Navigator.pushNamed(FBAuth.context, SignUp.RouteName , arguments: user);// change to events page
+      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName);// change to events page
     }
     // firebase authentication done !!
     // Returning user data for furthur use
