@@ -14,7 +14,8 @@ class Router{
         break;
 
       case SignUp.RouteName:
-        return MaterialPageRoute( builder: (_) => SignUp());
+        final args = settings.arguments;
+        return MaterialPageRoute( builder: (_) => SignUp(user: args));
         break;
 
       default:

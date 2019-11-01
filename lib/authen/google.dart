@@ -18,34 +18,44 @@ class GoogleAuth {
   static BuildContext context;
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
-  FirebaseUser fireuser;
-  AuthResult auth;
-
 
   static Future<GoogleReturn> signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser
-        .authentication;
-    assert(googleAuth.accessToken != null);
-    assert(googleAuth.idToken != null);
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    final AuthResult authResult = ( await _auth.signInWithCredential(credential));
+    FirebaseUser user;
+    AuthResult authResult;
+    AuthCredential credential;
+    try {
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth = await googleUser
+          .authentication;
+      assert(googleAuth.accessToken != null);
+      assert(googleAuth.idToken != null);
+
+      credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+    }
+    catch(error){
+      print('sign in failed');
+      print('error');
+    }
+    try {
+      authResult = (await _auth.signInWithCredential(
+          credential));
+       user = authResult.user;
+    }
+    catch(error){
+      print(error);
+    }
     if (authResult.additionalUserInfo.isNewUser ) {
       print('New user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName);
+      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
     }
     else {
       print('old user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName);
+      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
     }
-    final FirebaseUser user = authResult.user;
 
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();
