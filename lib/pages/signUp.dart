@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:srijan_app/pages/menu.dart';
 
 
 
@@ -267,14 +268,14 @@ class SignUpState extends State<SignUp>{
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.w900),
                           validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Required *';
+                            if ((value.isEmpty) ||(value.length<6) || (!value.contains(new RegExp(r'^[ A-Za-z0-9]$'))) ) {
+                              return 'not less than 6 characters and does not contain special charcters';
                             }
                           },
                           // onSaved: (val) =>
                           //     setState(() => _user.firstName = val),
                         ),
-                        SizedBox( height: 10.0),
+                        SizedBox( height: 20.0),
                         // Degree
                         TextFormField(
                           controller: controller4,
@@ -370,51 +371,52 @@ class SignUpState extends State<SignUp>{
                         ),
                         SizedBox(height: 10.0),
                         //Year
-//                        TextFormField(
-//                          controller: controller6,
-//                          decoration: InputDecoration(
-//                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-//                              labelText: 'Enter current year in college',
-//                              labelStyle: TextStyle(
-//                                color: Colors.white.withOpacity(0.5),
-//                              ),
-//                              hintStyle: TextStyle(
-//                                  color: Colors.white,
-//                                  fontWeight: FontWeight.bold,
-//                                  fontSize: 20),
-//                              hintText: "3rd",
-//                              enabledBorder: OutlineInputBorder(
-//                                borderRadius: BorderRadius.circular(15),
-//                                borderSide: BorderSide(
-//                                  color: Colors.white,
-//                                  width: 2,
-//                                ),
-//                              ),
-//                              border: OutlineInputBorder(
-//                                borderRadius: BorderRadius.circular(15),
-//                                borderSide: BorderSide(
-//                                  color: Colors.white,
-//                                  width: 3,
-//                                ),
-//                              ),
-//                              prefixIcon: Padding(
-//                                child: IconTheme(
-//                                  data: IconThemeData(
-//                                      color: Colors.white),
-//                                  child: Icon(Icons.timer),
-//                                ),
-//                                padding: EdgeInsets.only(left: 15, right: 10),
-//                              )),
-//                          style: TextStyle(
-//                              color: Colors.white, fontWeight: FontWeight.w900),
-//                          validator: (value) {
-//                            if (value.isEmpty) {
-//                              return 'Required *';
-//                            }
-//                          },
-//                          // onSaved: (val) =>
-//                          //     setState(() => _user.firstName = val),
-//                        ),
+                        TextFormField(
+                          controller: controller6,
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                              labelText: 'Enter current year in college',
+                              labelStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                              ),
+                              hintStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                              hintText: "3rd",
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 3,
+                                ),
+                              ),
+                              prefixIcon: Padding(
+                                child: IconTheme(
+                                  data: IconThemeData(
+                                      color: Colors.white),
+                                  child: Icon(Icons.timer),
+                                ),
+                                padding: EdgeInsets.only(left: 15, right: 10),
+                              )),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w900),
+                          validator: (value) {
+                            if (value.isEmpty || ((value!='1st') && (value != '2nd') && (value!='3rd') && (value!='4th'))) {
+                              return 'Required , 1st , 2nd , 3rd or 4th';
+                            }
+                          },
+                          // onSaved: (val) =>
+                          //     setState(() => _user.firstName = val),
+                        ),
+//                      drop(context),
 
                         SizedBox( height: 10.0),
                         Container(
@@ -428,7 +430,8 @@ class SignUpState extends State<SignUp>{
                                       print('verified');
                                       form.save();
                                       _perform(context);
-                                      _showDialog(context);
+
+
                                   }
                                 },
                                 child: Text('Register'))),
@@ -447,6 +450,7 @@ class SignUpState extends State<SignUp>{
     final user_degree = controller4.text;
     final user_course = controller5.text;
     final user_year = controller6.text;
+    _showDialog(context);
 
 
     state = state_FETCH_PROFILE;
@@ -474,6 +478,7 @@ class SignUpState extends State<SignUp>{
         if ( user.email == user_email && user.isEmailVerified){
             print('pushing value');
               _push(prof);
+
         }
         else{
             _info(context);
@@ -487,6 +492,7 @@ class SignUpState extends State<SignUp>{
                 if (error == 'ERROR_EMAIL_ALREADY_IN_USE') {
                   print('error');
                   print(error);
+                  _error(context);
                 }
                 else {
                   print('diff error');
@@ -507,8 +513,9 @@ class SignUpState extends State<SignUp>{
         print('contained');
         //alert user already registered
         // Using navigator push to events page
-        //Navigator.pushNamed(context, Event.RouteName , arguments: user);
         await _alert(context);
+        Navigator.pushNamed(context, ContentsPage.RouteName, arguments: user);
+
       }
       else{
           // verify email
@@ -519,12 +526,14 @@ class SignUpState extends State<SignUp>{
         }catch(error){
           print(error);
           print('Cant update email');
+          _error(context);
         }
       }
     }).catchError((error){
       if(state==state_FETCH_PROFILE)
       {
         print(error);
+        _error(context);
       }
     });
 
@@ -539,6 +548,7 @@ class SignUpState extends State<SignUp>{
     print(snapshot.toString());
 
       await ref.set(snapshot);
+      Navigator.pushNamed(context, ContentsPage.RouteName , arguments: user);
 
     }
     catch(error){
@@ -628,8 +638,10 @@ class SignUpState extends State<SignUp>{
   Widget drop(BuildContext context){
 //    listDrop.add(new DropdownMenuItem(child: null))
     return DropdownButtonFormField(
-        items: null,//listdrop,
-        hint: Text('Select your college'),
+
+        items: listDrop,//listdrop,
+        hint: Text('Select your year' , style: TextStyle(color: Colors.white),),
+
       validator: (value) {
       if (value.isEmpty) {
         return 'Required *';
@@ -656,7 +668,7 @@ class SignUpState extends State<SignUp>{
             child: IconTheme(
               data: IconThemeData(
                   color: Colors.white),
-              child: Icon(Icons.location_city),
+              child: Icon(Icons.timer),
             ),
             padding: EdgeInsets.only(left: 15, right: 10),
           )

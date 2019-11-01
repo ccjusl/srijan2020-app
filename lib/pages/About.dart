@@ -1,12 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:srijan_app/Workshops/workshop1.dart';
-import 'package:srijan_app/pages/signUp.dart';
-import 'package:http/http.dart' as http;
 
 /*void main() {
   runApp(new MyApp());
@@ -22,18 +15,17 @@ class MyApp extends StatelessWidget {
       home: new WorkshopPage(),
     );
   }
-}*/ //just driver code
+}
+*///just driver code
 
-class WorkshopPage extends StatelessWidget {
-  static const routeName = '/WorkshopdPage';
+class AboutPage extends StatelessWidget {
+  static const routeName = '/about';
   final double height1 = 80.0;
   final double width1 = 150.0;
   final FirebaseUser user;
-
-  WorkshopPage({
+  AboutPage({
     @required this.user,
-  });
-
+});
   Widget welcomeText(String s) {
     var show = s;
     return Container(
@@ -55,6 +47,50 @@ class WorkshopPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget welcomeText2(String s) {
+    var show = s;
+    return Container(
+      // margin: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+      alignment: Alignment(0.0, 0.0),
+      height: 60.0,
+      width: 120.0,
+      child: Text(
+        show,
+        style: TextStyle(
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.bold,
+          /*fontStyle: 'Raleway-Medium',*/
+          fontSize: 30,
+          decoration: TextDecoration.none,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+Widget welcomeTextSize(String s, double i) {
+    var show = s;
+    return Container(
+      // margin: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+      alignment: Alignment(0.0, 0.0),
+      height: 60.0,
+      width: 120.0,
+      child: Text(
+        show,
+        style: TextStyle(
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.bold,
+          /*fontStyle: 'Raleway-Medium',*/
+          fontSize: i,
+          decoration: TextDecoration.none,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +144,6 @@ class WorkshopPage extends StatelessWidget {
               )),
             ),
           ),
-
           Positioned(
             height: 1330.0,
             width: 200.0,
@@ -190,7 +225,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 30.0,
             top: 60.0,
@@ -207,12 +241,11 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 62.0,
-            top: 110.0,
+            top: 106.0,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(35.0),
               child: Container(
                 height: 55.0,
                 width: 55.0,
@@ -220,14 +253,13 @@ class WorkshopPage extends StatelessWidget {
                 alignment: Alignment(-1.0, -1.0),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fill,
+                    //fit: BoxFit.fill,
                     image: NetworkImage(user.photoUrl),
                   ),
                 ),
               ),
             ),
           ),
-
 //          Positioned(
 //            left: 62.0,
 //            top: 106.0,
@@ -239,13 +271,11 @@ class WorkshopPage extends StatelessWidget {
 //              decoration: BoxDecoration(
 //                image: DecorationImage(
 //                  //fit: BoxFit.fill,
-//                  image: AssetImage(
-//                      'assets/dp_to be changed.png'),
+//                  image: AssetImage('assets/dp_to be changed.png'),
 //                ),
 //              ),
 //            ),
 //          ),
-
           Positioned(
             left: 10.0,
             top: 165.0,
@@ -256,7 +286,7 @@ class WorkshopPage extends StatelessWidget {
               alignment: Alignment(-1.0, -1.0),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                   image: AssetImage(
                       'assets/Rounded Rectangle_behind welcome Shubhrajyoti.png'),
                 ),
@@ -307,7 +337,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 8.0,
             top: 145.0,
@@ -324,7 +353,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 55.0,
             top: 146.5,
@@ -341,7 +369,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 80.0,
             top: 146.5,
@@ -350,15 +377,9 @@ class WorkshopPage extends StatelessWidget {
               width: 240.0,
               // color: Colors.white,
               alignment: Alignment(0.0, 0.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitWidth,
-                  image: AssetImage('assets/workshops text.png'),
-                ),
-              ),
+              child: welcomeText2('About'),
             ),
           ),
-
           Positioned(
             left: 152.0,
             bottom: 4.5,
@@ -391,7 +412,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 115.0,
             bottom: 4.5,
@@ -408,7 +428,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 235.0,
             bottom: 4.5,
@@ -425,7 +444,6 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
             left: 192.0,
             bottom: 5.6,
@@ -442,167 +460,49 @@ class WorkshopPage extends StatelessWidget {
               ),
             ),
           ),
-
-          /*Positioned(
-            left: 192.0,
-            bottom: 50.6,
-            child: Container(
-              height: 70.0,
-              width: 150.0,
-              // color: Colors.white,
-              alignment: Alignment(0.0, 0.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage(
-                      'assets/bounding box_behind workshop small.png'),
-                ),
-              ),
-              child: FlatButton(
-                  onPressed: (){} ,
-                  child: welcomeText('WORKSHOP 1'),
-              ),
-            ),
-          ),*/
-
           Positioned(
-            left: 20.0,
-            right: 20.0,
-            top: 300.0,
-            bottom: 75.0,
-            child: Container(
-              alignment: Alignment.center,
-              //color: Colors.white,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, WorkShop1.RouteName, arguments: user);
-                          },
-                          child: Image.asset('assets/nivt_logo (1).png' , height: 80.0, width: 120.0,),
+              top: 300,
+              child: Center(
+                child: Stack(children: <Widget>[
+                  Positioned(
+                    child: Container(
+                      height: 340,
+                      width: 400,
+                      // color: Colors.white,
+
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'assets/bounding box_behind workshop small.png'),
                         ),
                       ),
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: welcomeText('Coming Soon'),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: welcomeText('Coming Soon'),
-                        ),
+                  Positioned(
+                    top: 20, 
+                    left: 128, 
+                    child: welcomeTextSize('Details', 25),),
+                    Positioned(
+                      top: 70, 
+                      left: 50, 
+                      child: Container(
+                        height: 400, width: 300, 
+                        child:Text(
+                      "It is the largest of its sorts in the City of Joy. A multitude of myriad patterned events attracts thousands of students from technical and non-technical institutes throughout the nation. Interesting competitive events, inspiring lectures, informative seminars and delectable entertainment shows promote creative thinking in the spheres of technology, science, and management. Since its conception, brand Srijan has been growing exponentially." 
+                      ,
+                      
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: 15, 
+                      fontFamily: 'Raleway',
+                      color: Colors.white)
                       ),
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: welcomeText('Coming Soon'),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: welcomeText('Coming Soon'),
-                        ),
-                      ),
-                      Container(
-                        height: height1,
-                        width: width1,
-                        // color: Colors.white,
-                        alignment: Alignment(0.0, 0.0),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/bounding box_behind workshop small.png'),
-                          ),
-                        ),
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: welcomeText('Coming Soon'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+                      )
+                      
+                )]),
+              )),
         ],
       ),
     );
   }
-
-
 }

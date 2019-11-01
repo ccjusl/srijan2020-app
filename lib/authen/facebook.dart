@@ -48,7 +48,7 @@ class FBAuth {
     else {
       print('old user');
       Navigator.pushNamed(FBAuth.context, SignUp.RouteName , arguments: user);// change to events page
-      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName);// change to events page
+//      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName, arguments: user);// change to events page
     }
     // firebase authentication done !!
     // Returning user data for furthur use

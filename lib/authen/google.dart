@@ -20,7 +20,7 @@ class GoogleAuth {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  static Future<GoogleReturn> signInWithGoogle() async {
+  static Future<void> signInWithGoogle() async {
     FirebaseUser user;
     AuthResult authResult;
     AuthCredential credential;
@@ -37,6 +37,7 @@ class GoogleAuth {
       );
     }
     catch(error){
+      GoogleAuth()._error(GoogleAuth.context);
       print('sign in failed');
       print('error');
     }
@@ -46,25 +47,61 @@ class GoogleAuth {
        user = authResult.user;
     }
     catch(error){
+      GoogleAuth()._error(GoogleAuth.context);
       print(error);
     }
-    if (authResult.additionalUserInfo.isNewUser ) {
-      print('New user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
+    try {
+      assert(await user.getIdToken() != null);
+
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert( user.uid == currentUser.uid);
     }
-    else {
-      print('old user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
-      Navigator.pushNamed(GoogleAuth.context, ContentsPage.RouteName);
-
+    catch(error){
+      print(error);
+    }
+    try {
+      if (authResult.additionalUserInfo.isNewUser) {
+        print('New user');
+        Navigator.pushNamed(
+            GoogleAuth.context, SignUp.RouteName, arguments: user);
+      }
+      else {
+        print('old user');
+//      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
+        Navigator.pushNamed(
+            GoogleAuth.context, ContentsPage.RouteName, arguments: user);
+      }
+    }catch(error){
+      GoogleAuth()._error(GoogleAuth.context);
     }
 
-    assert(await user.getIdToken() != null);
 
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert( user.uid == currentUser.uid);
 
-    return GoogleReturn( user: user , auth: authResult);
+//    return GoogleReturn( user: user , auth: authResult);
+  }
+
+  Future<void> _error(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text('Error'),
+          content: new Text('Sources may be weak internet connection or server is down , please restart the app or try after some time'),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   GoogleReturn getApi(){
