@@ -20,26 +20,49 @@ class GoogleAuth {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
 
+
   static Future<void> signInWithGoogle() async {
     FirebaseUser user;
     AuthResult authResult;
     AuthCredential credential;
+
+
+
+//    await _googleSignIn.signIn().then((GoogleSignInAccount result) async{
+//
+//      await result.authentication.then((googleKey) async{
+//
+//        print(googleKey.accessToken);
+//        print(googleKey.idToken);
+//        print(_googleSignIn.currentUser.displayName);
+//
+//        await GoogleAuthProvider.getCredential(
+//            idToken: , accessToken: null
+//        )
+//
+//
+//
+//
+//      }).catchError((err){
+//        _error(context);
+//        print('inner error');
+//      });
+//    }).catchError((err){
+//      _error(context);
+//      print('error occured');
+//    });
     try {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth = await googleUser
-          .authentication;
-
-
-      assert(googleAuth.accessToken != null);
-      assert(googleAuth.idToken != null);
-      assert(await user.getIdToken() != null);
-
-      credential = GoogleAuthProvider.getCredential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-    }
-    catch(error){
+      if (await _googleSignIn.isSignedIn()) {
+        final GoogleSignInAuthentication googleAuth = await googleUser
+            .authentication;
+        credential = GoogleAuthProvider.getCredential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+      }
+      }
+    catch (error) {
       GoogleAuth()._error(GoogleAuth.context);
       print('sign in failed');
       print('error');
@@ -47,19 +70,17 @@ class GoogleAuth {
     try {
       authResult = (await _auth.signInWithCredential(
           credential));
-       user = authResult.user;
+      user = authResult.user;
     }
-    catch(error){
+    catch (error) {
       GoogleAuth()._error(GoogleAuth.context);
       print(error);
     }
     try {
-
-
       final FirebaseUser currentUser = await _auth.currentUser();
       assert( user.uid == currentUser.uid);
     }
-    catch(error){
+    catch (error) {
       print(error);
     }
     try {
@@ -74,9 +95,10 @@ class GoogleAuth {
         Navigator.pushNamed(
             GoogleAuth.context, ContentsPage.RouteName, arguments: user);
       }
-    }catch(error){
+    } catch (error) {
       GoogleAuth()._error(GoogleAuth.context);
     }
+
 
 
 
