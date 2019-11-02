@@ -28,8 +28,11 @@ class GoogleAuth {
       final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleAuth = await googleUser
           .authentication;
+
+
       assert(googleAuth.accessToken != null);
       assert(googleAuth.idToken != null);
+      assert(await user.getIdToken() != null);
 
       credential = GoogleAuthProvider.getCredential(
         accessToken: googleAuth.accessToken,
@@ -51,7 +54,7 @@ class GoogleAuth {
       print(error);
     }
     try {
-      assert(await user.getIdToken() != null);
+
 
       final FirebaseUser currentUser = await _auth.currentUser();
       assert( user.uid == currentUser.uid);

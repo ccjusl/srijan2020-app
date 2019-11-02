@@ -97,346 +97,350 @@ class SignUpState extends State<SignUp>{
                       fit: BoxFit.fill,
                       image: AssetImage('assets/background.png'),
                     )),
-                child: Builder(
-                    builder: (context) => Form(
-                      key: _formKey,
-                      child: Column(children: [
-                        SizedBox(height: 20.0),
-                        Container(
-                          height: 120.0,
-                          width: 280.0,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.white,
-                                  style: BorderStyle.solid,
-                                  width: 4.0),
-                              top: BorderSide(
-                                  color: Colors.white,
-                                  style: BorderStyle.solid,
-                                  width: 4.0),
+
+                child: SingleChildScrollView(
+
+                  child: Builder(
+                      builder: (context) => Form(
+                        key: _formKey,
+                        child: Column(children: [
+                          SizedBox(height: 20.0),
+                          Container(
+                            height: 120.0,
+                            width: 280.0,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                    color: Colors.white,
+                                    style: BorderStyle.solid,
+                                    width: 4.0),
+                                top: BorderSide(
+                                    color: Colors.white,
+                                    style: BorderStyle.solid,
+                                    width: 4.0),
+                              ),
                             ),
-                          ),
-                          child: Center(
-                              child: Text(
-                                'Registrations',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 45.0,
-                                ),
-                              )),
-                        ),
-                        SizedBox(height: 20.0),
-
-                        // Name .
-                        TextFormField(
-                          controller: controller1,
-
-
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter your name',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "FirstName LastName",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
-                                ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white
+                            child: Center(
+                                child: Text(
+                                  'Registrations',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 45.0,
                                   ),
-                                  child: Icon(Icons.supervised_user_circle),
-                                ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Required *';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
-                        SizedBox(height: 10.0),
-                        // Email
+                                )),
+                          ),
+                          SizedBox(height: 20.0),
 
-                        TextFormField(
-                          controller: controller2,
+                          // Name .
+                          TextFormField(
+                            controller: controller1,
 
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter your email address',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "xyz@abc.pqr",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
+
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter your name',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "FirstName LastName",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white),
-                                  child: Icon(Icons.email),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
                                 ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if (!value.contains(new RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+'))) {
-                              return 'Required *';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
-                        SizedBox(height: 10.0),
-                        // College
-                        TextFormField(
-                          controller: controller3,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter College',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "XYZ University",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white
+                                    ),
+                                    child: Icon(Icons.supervised_user_circle),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Required *';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
+                          SizedBox(height: 10.0),
+                          // Email
+
+                          TextFormField(
+                            controller: controller2,
+
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter your email address',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "xyz@abc.pqr",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white),
-                                  child: Icon(Icons.location_city),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
                                 ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if ((value.isEmpty) ||(value.length<6) || (!value.contains(new RegExp(r'^[ A-Za-z0-9]$'))) ) {
-                              return 'not less than 6 characters and does not contain special charcters';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
-                        SizedBox( height: 20.0),
-                        // Degree
-                        TextFormField(
-                          controller: controller4,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter Degree',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "Bachelor in XYZ degree",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white),
+                                    child: Icon(Icons.email),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if (!value.contains(new RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+'))) {
+                                return 'Required *';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
+                          SizedBox(height: 10.0),
+                          // College
+                          TextFormField(
+                            controller: controller3,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter College',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "XYZ University",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white),
-                                  child: Icon(Icons.library_books),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
                                 ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Required *';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
-                        SizedBox(height: 10.0),
-                        //Course
-                        TextFormField(
-                          controller: controller5,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter course detail',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "Electrical Engineering..",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white),
+                                    child: Icon(Icons.location_city),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if ((value.isEmpty) ||(value.length<6)  )  {
+                                return 'not less than 6 characters';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
+                          SizedBox( height: 20.0),
+                          // Degree
+                          TextFormField(
+                            controller: controller4,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter Degree',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "Bachelor in XYZ degree",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white),
-                                  child: Icon(Icons.print),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
                                 ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Required *';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
-                        SizedBox(height: 10.0),
-                        //Year
-                        TextFormField(
-                          controller: controller6,
-                          decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
-                              labelText: 'Enter current year in college',
-                              labelStyle: TextStyle(
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              hintStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                              hintText: "3rd",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2,
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white),
+                                    child: Icon(Icons.library_books),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Required *';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
+                          SizedBox(height: 10.0),
+                          //Course
+                          TextFormField(
+                            controller: controller5,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter course detail',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
                                 ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 3,
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "Electrical Engineering..",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
                                 ),
-                              ),
-                              prefixIcon: Padding(
-                                child: IconTheme(
-                                  data: IconThemeData(
-                                      color: Colors.white),
-                                  child: Icon(Icons.timer),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
                                 ),
-                                padding: EdgeInsets.only(left: 15, right: 10),
-                              )),
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
-                          validator: (value) {
-                            if (value.isEmpty || ((value!='1st') && (value != '2nd') && (value!='3rd') && (value!='4th'))) {
-                              return 'Required , 1st , 2nd , 3rd or 4th';
-                            }
-                          },
-                          // onSaved: (val) =>
-                          //     setState(() => _user.firstName = val),
-                        ),
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white),
+                                    child: Icon(Icons.print),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Required *';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
+                          SizedBox(height: 10.0),
+                          //Year
+                          TextFormField(
+                            controller: controller6,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(vertical: 5.0),
+                                labelText: 'Enter current year in college',
+                                labelStyle: TextStyle(
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
+                                hintStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                hintText: "3rd",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 2,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 3,
+                                  ),
+                                ),
+                                prefixIcon: Padding(
+                                  child: IconTheme(
+                                    data: IconThemeData(
+                                        color: Colors.white),
+                                    child: Icon(Icons.timer),
+                                  ),
+                                  padding: EdgeInsets.only(left: 15, right: 10),
+                                )),
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                            validator: (value) {
+                              if (value.isEmpty || ((value!='1st') && (value != '2nd') && (value!='3rd') && (value!='4th'))) {
+                                return 'Required , 1st , 2nd , 3rd or 4th';
+                              }
+                            },
+                            // onSaved: (val) =>
+                            //     setState(() => _user.firstName = val),
+                          ),
 //                      drop(context),
 
-                        SizedBox( height: 10.0),
-                        Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 16.0, horizontal: 16.0),
-                            child: RaisedButton(
-                              elevation: 12.0,
-                                onPressed: () {
-                                  final form = _formKey.currentState;
-                                  if ( form.validate()){
-                                      print('verified');
-                                      form.save();
-                                      _perform(context);
+                          SizedBox( height: 10.0),
+                          Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 16.0, horizontal: 16.0),
+                              child: RaisedButton(
+                                elevation: 12.0,
+                                  onPressed: () {
+                                    final form = _formKey.currentState;
+                                    if ( form.validate()){
+                                        print('verified');
+                                        form.save();
+                                        _perform(context);
 
 
-                                  }
-                                },
-                                child: Text('Register'))),
-                      ]),
-                    )))));
+                                    }
+                                  },
+                                  child: Text('Register'))),
+                        ]),
+                      )),
+                ))));
   }
 
   _showDialog(BuildContext context) {
