@@ -56,34 +56,33 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Circles upper right
               Positioned(
-                top: -45,
-//                right: -105,
+                bottom: 470,
+                left: 162,
                 child: Center(
                     child: Image(
-                      image: AssetImage('assets/app_mp/circles_upper right.png'),
-                      width:1.55*size.width,
-                      height: 0.34*size.height,
-
+                        image: AssetImage('assets/app_mp/circles_upper right.png'),
+                        width:MediaQuery.of(context).size.width/1.5,
+                        height: MediaQuery.of(context).size.height/3
                     )),
               ),
 
               //triangles top right srijan 20
               Positioned(
                   top: 20,
-                  right:-10,
+                  right:10,
                   child: Image(
-                    image: AssetImage('assets/app_mp/triangle_top right behind srijan20.png'),
-                    width: 0.5*size.width,
-                    height:0.19*size.height,
+                      image: AssetImage('assets/app_mp/triangle_top right behind srijan20.png'),
+                      width:MediaQuery.of(context).size.width/2.6,
+                      height: MediaQuery.of(context).size.height/5.2
                   )),
 
               //Srijan 20 upper right
               Positioned(
                   top: 40,
-                  right: 12,
+                  right: 2,
                   child: Image(
                     image: AssetImage('assets/app_mp/srijan20_upper right.png'),
-                    width: 0.35 * size.width,
+                    width: MediaQuery.of(context).size.width/2.5,
                   )),
 
               //Subhrojyoti Image
@@ -99,44 +98,44 @@ class _MyHomePageState extends State<ContentsPage> {
                       child: Image(
                           image:NetworkImage(user.photoUrl),
                           fit:BoxFit.fill,
-                          width:0.19*size.width
-                      ),
+                          width:MediaQuery.of(context).size.width/7.8,
+                          height:MediaQuery.of(context).size.height/12                         ),
                     ),
                   )
               ),
 
               Positioned(
-                  top:5,
-                  left:18,
+                  top:22,
+                  left:30,
                   child:Image(
                       image:AssetImage('assets/app_mp/circle_top left.png'),
                       fit:BoxFit.fill,
-                      width:0.35*size.width,
-                      height:0.15*size.height
+                      width:MediaQuery.of(context).size.width/3.8,
+                      height:MediaQuery.of(context).size.height/8
                   )
               ),
 
               //Rounded Rectangle for Subhrojyoti
 
               Positioned(
-                  top:110,
-                  left:10,
+                  top:95,
+                  left:30,
                   child:Image(
                       image:AssetImage('assets/app_mp/Rounded Rectangle_behind welcome Shubhrajyoti.png'),
                       fit:BoxFit.fill,
-                      width:0.45*size.width
+                      width:MediaQuery.of(context).size.width/3.5
                   )
               ),
-
               //Welcome Subhrojyoti text
               Positioned(
-                  top:115,
-                  left:65,
+                  top:101,
+                  left:41,
                   child: Text(
                     'WELCOME',
                     style: TextStyle(color: Colors.white, fontSize: 12.0 , fontWeight: FontWeight.w600),
                   )
               ),
+
               Positioned(
                   top:130,
                   left:60,
@@ -153,38 +152,46 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Centre Circle
               Positioned(
-                  top:170,
-                  left:-40,
-                  child:Image(
-                      image:AssetImage('assets/app_mp/circles_center bg.png'),
-                      fit:BoxFit.fill,
-                      width: 1.2*size.width,
-                      height:0.6*size.height
-                  )
-              ),
+                  top:160,
+//                  left:20,
+
+                  child:Container(
+//            color:Colors.red,
+
+                      height: 400,
+                      width:450,
+
+                      child:Image(
+                        image:AssetImage('assets/app_mp/circles_center bg.png'),
+                        fit:BoxFit.fill,
+                        /*width: MediaQuery.of(context).size.width/0.5,
+                      height:MediaQuery.of(context).size.height/1.2*/
+
+                      ))),
+
 
               // Triangle Centre
               Positioned(
-                  top:250,
-                  left:50,
+                  top:230,
+                  left:20,
                   child:Image(
                       image:AssetImage('assets/app_mp/triangle_center bg above circle.png'),
                       fit:BoxFit.fill,
-                      width: 0.7*size.width,
-                      height:0.36*size.height
+                      width:MediaQuery.of(context).size.width/1.1,
+                      height:MediaQuery.of(context).size.height/2.5
                   )
               ),
+
 
 
               //Black overlay behind timer
               Positioned(
-                  top:150,
+                  top:145,
                   child:Image(
                       image:AssetImage('assets/app_mp/black overlay_behind timer.png'),
-                      width:0.87*size.width
+                      width:MediaQuery.of(context).size.width/1.2
                   )
               ),
-
               //Timer
 //              Positioned(
 //                  top:150,
@@ -199,16 +206,17 @@ class _MyHomePageState extends State<ContentsPage> {
               //Bottom Background
 
               Positioned(
-                  bottom:-100,
+                  top:470,
 
 
                   child: Image(
                     image: AssetImage('assets/app_mp/background_bottom.png'),
                     fit:BoxFit.cover,
                     width:size.width,
-                    height:0.39*size.height,
+                    height:MediaQuery.of(context).size.height/2.5,
                   )
               ),
+
 
 
 
@@ -217,14 +225,16 @@ class _MyHomePageState extends State<ContentsPage> {
               //About ImageBox
               Positioned(
                   top :220,
-                  left:-35,
+//                  left:-35,
                   child: FlatButton(
                     onPressed: (){
                       Navigator.pushNamed(context, AboutPage.routeName ,arguments: user);
                     },
                     child: Image(
                         image:AssetImage('assets/app_mp/about.png'),
-                        width:1.2*size.width
+                      width:MediaQuery.of(context).size.width/1.2,
+                      height:MediaQuery.of(context).size.height/7.5,
+                      fit:BoxFit.cover,
                     ),
                   )
               ),
@@ -232,17 +242,19 @@ class _MyHomePageState extends State<ContentsPage> {
               //Events ImageBox
               Positioned(
                   top:310,
-                  left:-35,
-                  child:Image(
-                      image:AssetImage('assets/app_mp/events.png'),
-                      width:1.2*size.width
-                  )
-              ),
-
+                  child:FlatButton(
+                      child:Image(
+                          image:AssetImage('assets/app_mp/events.png'),
+                          width:MediaQuery.of(context).size.width/1.2,
+                          height:MediaQuery.of(context).size.height/7.4,
+                          fit:BoxFit.cover
+                      ),
+                      onPressed:(){}
+                  )),
               //Workshops ImageBox
               Positioned(
                   top:400,
-                  left:-35,
+//                  left:-35,
 
                   child:FlatButton(
                     onPressed: (){
@@ -250,8 +262,9 @@ class _MyHomePageState extends State<ContentsPage> {
                     },
                     child: Image(
                         image:AssetImage('assets/app_mp/workshops.png'),
-
-                        width:1.2*size.width
+                        width:MediaQuery.of(context).size.width/1.2,
+                        height:MediaQuery.of(context).size.height/7.4,
+                        fit:BoxFit.cover
                     ),
                   )
               ),
@@ -262,9 +275,9 @@ class _MyHomePageState extends State<ContentsPage> {
                   right:5,
 
                   child: Image(
-                    image: AssetImage('assets/app_mp/campus ambassador_behind icon .png'),
-                    fit:BoxFit.fill,
-                    height:0.18*size.height,
+                      image: AssetImage('assets/app_mp/campus ambassador_behind icon .png'),
+                      fit:BoxFit.fill,
+                      height:MediaQuery.of(context).size.height/5.5
 //                      width:2*size.width
                   )
               ),
@@ -276,26 +289,28 @@ class _MyHomePageState extends State<ContentsPage> {
                   child: Image(
                     image: AssetImage('assets/app_mp/campus ambassadors_icon lower.png'),
                     fit:BoxFit.fill,
-//                    width:0.7*size.width,
+//                    width:MediaQuery.of(context).size.width/4,
 
-                    height:0.06*size.height,
+                    height:MediaQuery.of(context).size.height/15.5,
                   )
               ),
 
               //Gallery behind Icon
+              //Gallery behind Icon
               Positioned(
-                  bottom: 13,
+                  bottom: 12,
                   left: 115,
+
+
                   child: Image(
                     image: AssetImage('assets/app_mp/gallery_behind icon.png'),
 //                    color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:0.7*size.width,
-                    height:0.18*size.height,
-                  ),
+                    height:MediaQuery.of(context).size.height/5.5,
+                  )
               ),
 
-              //Gallery lower icon
               Positioned(
                   bottom: 66,
                   right: 167,
@@ -303,38 +318,43 @@ class _MyHomePageState extends State<ContentsPage> {
 
                   child: Image(
                     image: AssetImage('assets/app_mp/Gallery_icon lower.png'),
+//                    color: Colors.white,
                     fit:BoxFit.fill,
-                    height:0.042*size.height,
+                    width:MediaQuery.of(context).size.width/8.5,
+                    height:MediaQuery.of(context).size.height/23,
                   )
               ),
-
               //Our sponsors behind icon
               Positioned(
-                  bottom: 13,
-                  left: -10,
+                  bottom: 17,
+                  right: 258,
 
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_behind icon.png'),
+//                    color: Colors.white,
                     fit:BoxFit.fill,
-                    height:0.18*size.height,
+//                    width:0.7*size.width,
+                    height:MediaQuery.of(context).size.height/6.2,
                   )
               ),
 
               //Our sponsors lower icon
               Positioned(
-                  bottom: 64,
+                  bottom: 62,
                   left: 28,
 
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_icon lower.png'),
+//                    color: Colors.white,
                     fit:BoxFit.fill,
-                    height:0.056*size.height,
+//                    width:0.7*size.width,
+                    height:MediaQuery.of(context).size.height/17.5,
                   )
               ),
 
-              //Dividers and all lower icons.
+
               Positioned(
                   bottom: 1,
                   right: 70,
@@ -344,25 +364,26 @@ class _MyHomePageState extends State<ContentsPage> {
                     image: AssetImage('assets/app_mp/dividers social media_bottom.png'),
                     color: Colors.white,
                     fit:BoxFit.fill,
-                    width:0.7*size.width,
-                    height:0.05*size.height,
+                    width:MediaQuery.of(context).size.width/1.5,
+                    height:MediaQuery.of(context).size.height/20,
                   )
               ),
               Positioned(
-                  bottom:1.5,
-                  left: 50,
+                  bottom:1.8,
+                  left: 60,
 
 
                   child: Image(
                     image: AssetImage('assets/app_mp/youtube_icon.png'),
                     color: Colors.white,
                     fit:BoxFit.fill,
-                    height:0.05*size.height,
+//                    width:size.width,
+                    height:MediaQuery.of(context).size.height/22,
                   )
               ),
               Positioned(
                   bottom:1.5,
-                  left: 100,
+                  left: 110,
 
 
                   child: Image(
@@ -370,12 +391,12 @@ class _MyHomePageState extends State<ContentsPage> {
                     color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:size.width,
-                    height:0.05*size.height,
+                    height:MediaQuery.of(context).size.height/22,
                   )
               ),
               Positioned(
                   bottom:1.5,
-                  left: 150,
+                  left: 158,
 
 
                   child: Image(
@@ -383,12 +404,12 @@ class _MyHomePageState extends State<ContentsPage> {
                     color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:size.width,
-                    height:0.05*size.height,
+                    height:MediaQuery.of(context).size.height/22,
                   )
               ),
 
               Positioned(
-                  bottom:1.5,
+                  bottom:2,
                   right: 120,
 
 
@@ -397,12 +418,13 @@ class _MyHomePageState extends State<ContentsPage> {
                     color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:size.width,
-                    height:0.05*size.height,
+                    height:MediaQuery.of(context).size.height/22,
                   )
               ),
+
               Positioned(
-                  bottom:1.5,
-                  right: 80,
+                  bottom:2,
+                  right: 77,
 
 
                   child: Image(
@@ -410,7 +432,7 @@ class _MyHomePageState extends State<ContentsPage> {
                     color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:size.width,
-                    height:0.052*size.height,
+                    height:MediaQuery.of(context).size.height/22,
                   )
               ),
 
