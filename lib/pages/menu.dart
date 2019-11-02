@@ -1,32 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:srijan_app/pages/About.dart';
+import 'package:srijan_app/pages/mainWorkshopPage.dart';
 
-void main() => runApp(ContentsPage());
-
-class ContentsPage extends StatelessWidget {
+class ContentsPage extends StatefulWidget {
   static const RouteName = '\menu';
-
-  // This widget is the root of your application.
+  final FirebaseUser user;
+  ContentsPage({
+    @required this.user,
+});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
-    );
-  }
+  _MyHomePageState createState() => _MyHomePageState(user:user);
 }
 
-class MyHomePage extends StatefulWidget {
+class _MyHomePageState extends State<ContentsPage> {
+  final FirebaseUser user;
 
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
+  _MyHomePageState({
+    @required this.user,
+});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery
@@ -94,12 +88,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
               //Subhrojyoti Image
               Positioned(
-                  top:38,
-                  left:47,
-                  child:Image(
-                      image:AssetImage('assets/app_mp/dp_to be changed.png'),
-                      fit:BoxFit.fill,
-                      width:0.19*size.width
+                  top:41,
+                  left:51,
+                  child:ClipRRect(
+                    borderRadius: BorderRadius.circular(35.0),
+                    
+                    child: Container(
+                      height: 64.0,
+                      width: 60.0,
+                      child: Image(
+                          image:NetworkImage(user.photoUrl),
+                          fit:BoxFit.fill,
+                          width:0.19*size.width
+                      ),
+                    ),
                   )
               ),
 
@@ -117,24 +119,36 @@ class _MyHomePageState extends State<MyHomePage> {
               //Rounded Rectangle for Subhrojyoti
 
               Positioned(
-                  top:95,
-                  left:30,
+                  top:110,
+                  left:10,
                   child:Image(
                       image:AssetImage('assets/app_mp/Rounded Rectangle_behind welcome Shubhrajyoti.png'),
                       fit:BoxFit.fill,
-                      width:0.30*size.width
+                      width:0.45*size.width
                   )
               ),
 
               //Welcome Subhrojyoti text
               Positioned(
-                  top:97,
-                  left:37,
-                  child:Image(
-                      image:AssetImage('assets/app_mp/Welcome Shubhrajyoti_top left.png'),
-                      fit:BoxFit.fill,
-                      width:0.25*size.width
+                  top:115,
+                  left:65,
+                  child: Text(
+                    'WELCOME',
+                    style: TextStyle(color: Colors.white, fontSize: 12.0 , fontWeight: FontWeight.w600),
                   )
+              ),
+              Positioned(
+                  top:130,
+                  left:60,
+
+                child:Container(
+                  alignment: Alignment(0.0 , 0.0),
+                  child: Text(
+                    '${user.displayName.substring(0, user.displayName.indexOf(' '))}' , style: TextStyle( color: Colors.deepOrangeAccent , fontSize: 14.0 ,
+                      fontWeight: FontWeight.w900 ),
+                    maxLines: 1,
+                  ),
+                ),
               ),
 
               //Centre Circle
@@ -172,15 +186,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               //Timer
-              Positioned(
-                  top:150,
-                  left:35,
-                  child:Image(
-                    image:AssetImage('assets/app_mp/timer.png'),
-                    width:0.3*size.width,
-                    height: 0.1*size.height,
-                  )
-              ),
+//              Positioned(
+//                  top:150,
+//                  left:35,
+//                  child:Image(
+//                    image:AssetImage('assets/app_mp/timer.png'),
+//                    width:0.3*size.width,
+//                    height: 0.1*size.height,
+//                  )
+//              ),
 
               //Bottom Background
 
@@ -204,9 +218,14 @@ class _MyHomePageState extends State<MyHomePage> {
               Positioned(
                   top :220,
                   left:-35,
-                  child: Image(
-                      image:AssetImage('assets/app_mp/about.png'),
-                      width:1.2*size.width
+                  child: FlatButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, AboutPage.routeName ,arguments: user);
+                    },
+                    child: Image(
+                        image:AssetImage('assets/app_mp/about.png'),
+                        width:1.2*size.width
+                    ),
                   )
               ),
 
@@ -224,9 +243,16 @@ class _MyHomePageState extends State<MyHomePage> {
               Positioned(
                   top:400,
                   left:-35,
-                  child:Image(
-                      image:AssetImage('assets/app_mp/workshops.png'),
-                      width:1.2*size.width
+
+                  child:FlatButton(
+                    onPressed: (){
+                      Navigator.pushNamed(context, WorkshopPage.routeName , arguments: user);
+                    },
+                    child: Image(
+                        image:AssetImage('assets/app_mp/workshops.png'),
+
+                        width:1.2*size.width
+                    ),
                   )
               ),
 
@@ -260,15 +286,13 @@ class _MyHomePageState extends State<MyHomePage> {
               Positioned(
                   bottom: 13,
                   left: 115,
-
-
                   child: Image(
                     image: AssetImage('assets/app_mp/gallery_behind icon.png'),
 //                    color: Colors.white,
                     fit:BoxFit.fill,
 //                    width:0.7*size.width,
                     height:0.18*size.height,
-                  )
+                  ),
               ),
 
               //Gallery lower icon

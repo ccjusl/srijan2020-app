@@ -19,40 +19,114 @@ class GoogleAuth {
   static BuildContext context;
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
-  FirebaseUser fireuser;
-  AuthResult auth;
 
 
-  static Future<GoogleReturn> signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser
-        .authentication;
-    assert(googleAuth.accessToken != null);
-    assert(googleAuth.idToken != null);
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+  static Future<void> signInWithGoogle() async {
+    FirebaseUser user;
+    AuthResult authResult;
+    AuthCredential credential;
+
+
+
+//    await _googleSignIn.signIn().then((GoogleSignInAccount result) async{
+//
+//      await result.authentication.then((googleKey) async{
+//
+//        print(googleKey.accessToken);
+//        print(googleKey.idToken);
+//        print(_googleSignIn.currentUser.displayName);
+//
+//        await GoogleAuthProvider.getCredential(
+//            idToken: , accessToken: null
+//        )
+//
+//
+//
+//
+//      }).catchError((err){
+//        _error(context);
+//        print('inner error');
+//      });
+//    }).catchError((err){
+//      _error(context);
+//      print('error occured');
+//    });
+    try {
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      if (await _googleSignIn.isSignedIn()) {
+        final GoogleSignInAuthentication googleAuth = await googleUser
+            .authentication;
+        credential = GoogleAuthProvider.getCredential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+      }
+      }
+    catch (error) {
+      GoogleAuth()._error(GoogleAuth.context);
+      print('sign in failed');
+      print('error');
+    }
+    try {
+      authResult = (await _auth.signInWithCredential(
+          credential));
+      user = authResult.user;
+    }
+    catch (error) {
+      GoogleAuth()._error(GoogleAuth.context);
+      print(error);
+    }
+    try {
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert( user.uid == currentUser.uid);
+    }
+    catch (error) {
+      print(error);
+    }
+    try {
+      if (authResult.additionalUserInfo.isNewUser) {
+        print('New user');
+        Navigator.pushNamed(
+            GoogleAuth.context, SignUp.RouteName, arguments: user);
+      }
+      else {
+        print('old user');
+//      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
+        Navigator.pushNamed(
+            GoogleAuth.context, ContentsPage.RouteName, arguments: user);
+      }
+    } catch (error) {
+      GoogleAuth()._error(GoogleAuth.context);
+    }
+
+
+
+
+//    return GoogleReturn( user: user , auth: authResult);
+  }
+
+  Future<void> _error(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text('Error'),
+          content: new Text('Sources may be weak internet connection or server is down , please restart the app or try after some time'),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
-    final AuthResult authResult = ( await _auth.signInWithCredential(credential));
-    if (authResult.additionalUserInfo.isNewUser ) {
-      print('New user');
-      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName);
-    }
-    else {
-      print('old user');
-      Navigator.pushNamed(GoogleAuth.context, ContentsPage.RouteName);
-    }
-    final FirebaseUser user = authResult.user;
-
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final FirebaseUser currentUser = await _auth.currentUser();
-    assert( user.uid == currentUser.uid);
-
-    return GoogleReturn( user: user , auth: authResult);
   }
 
   GoogleReturn getApi(){
