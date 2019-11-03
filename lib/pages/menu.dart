@@ -5,6 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:srijan_app/pages/About.dart';
 import 'package:srijan_app/pages/mainWorkshopPage.dart';
 
+/*void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      home: ContentsPage(),
+    );
+  }
+}*/
+
+
 class ContentsPage extends StatefulWidget {
   static const RouteName = '\menu';
   final FirebaseUser user;
@@ -34,30 +49,28 @@ class _MyHomePageState extends State<ContentsPage> {
               Center(
                   child: Image(
                       image: AssetImage('assets/app_mp/main background.png'),
-                      width: size.width,
-                      height: size.height,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
                       fit: BoxFit.fill)),
 
               //Background top above main
               Positioned(
-                  top:-110,
-                  right: -10,
+                  bottom:MediaQuery.of(context).size.height/1.57,
 
                   child: Image(
                     image: AssetImage(
                         'assets/app_mp/background_top above main.png'),
-//
-                    height: 0.5*size.height,
-                    width: size.width,
-                    fit:BoxFit.cover,
 
+                    height: MediaQuery.of(context).size.height/1.8,
+                    width: MediaQuery.of(context).size.width/0.9,
+                    fit:BoxFit.cover,
                   )
               ),
 
               //Circles upper right
               Positioned(
-                bottom: 470,
-                left: 162,
+                bottom: MediaQuery.of(context).size.height/1.355,
+                left: MediaQuery.of(context).size.width/2.25,
                 child: Center(
                     child: Image(
                         image: AssetImage('assets/app_mp/circles_upper right.png'),
@@ -68,77 +81,81 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //triangles top right srijan 20
               Positioned(
-                  top: 20,
-                  right:10,
+                  top: MediaQuery.of(context).size.height/30,
+                  right:MediaQuery.of(context).size.width/35,
                   child: Image(
                       image: AssetImage('assets/app_mp/triangle_top right behind srijan20.png'),
-                      width:MediaQuery.of(context).size.width/2.6,
+                      width:MediaQuery.of(context).size.width/2.5,
                       height: MediaQuery.of(context).size.height/5.2
                   )),
 
               //Srijan 20 upper right
               Positioned(
-                  top: 40,
-                  right: 2,
+                  top: MediaQuery.of(context).size.height/20,
+                  right: MediaQuery.of(context).size.width/200,
                   child: Image(
                     image: AssetImage('assets/app_mp/srijan20_upper right.png'),
-                    width: MediaQuery.of(context).size.width/2.5,
+                    width: MediaQuery.of(context).size.width/2.4,
                   )),
 
               //Subhrojyoti Image
               Positioned(
-                  top:41,
-                  left:51,
+                  top:MediaQuery.of(context).size.height/12.5,
+                  left:MediaQuery.of(context).size.width/6.4,
                   child:ClipRRect(
                     borderRadius: BorderRadius.circular(35.0),
                     
                     child: Container(
-                      height: 64.0,
-                      width: 60.0,
+                      height:MediaQuery.of(context).size.height/12.5,
+                      width:MediaQuery.of(context).size.width/6.8,
                       child: Image(
                           image:NetworkImage(user.photoUrl),
                           fit:BoxFit.fill,
-                          width:MediaQuery.of(context).size.width/7.8,
-                          height:MediaQuery.of(context).size.height/12                         ),
+                          width:MediaQuery.of(context).size.width/8,
+                          height:MediaQuery.of(context).size.height/15                         ),
                     ),
                   )
               ),
 
+              //Circle above user
               Positioned(
-                  top:22,
-                  left:30,
+                  top:MediaQuery.of(context).size.height/28,
+                  left:MediaQuery.of(context).size.width/11,
                   child:Image(
                       image:AssetImage('assets/app_mp/circle_top left.png'),
                       fit:BoxFit.fill,
-                      width:MediaQuery.of(context).size.width/3.8,
-                      height:MediaQuery.of(context).size.height/8
+                      width:MediaQuery.of(context).size.width/3.5,
+                      height:MediaQuery.of(context).size.height/7.5
                   )
               ),
 
               //Rounded Rectangle for Subhrojyoti
 
               Positioned(
-                  top:95,
-                  left:30,
+                  top:MediaQuery.of(context).size.height/6.8,
+                  left:MediaQuery.of(context).size.width/10,
                   child:Image(
                       image:AssetImage('assets/app_mp/Rounded Rectangle_behind welcome Shubhrajyoti.png'),
                       fit:BoxFit.fill,
                       width:MediaQuery.of(context).size.width/3.5
                   )
               ),
+
+
               //Welcome Subhrojyoti text
               Positioned(
-                  top:101,
-                  left:41,
+                  top:MediaQuery.of(context).size.height/6.7,
+                  left:MediaQuery.of(context).size.width/6,
                   child: Text(
                     'WELCOME',
                     style: TextStyle(color: Colors.white, fontSize: 12.0 , fontWeight: FontWeight.w600),
                   )
               ),
 
+              //Display Name text
               Positioned(
-                  top:130,
-                  left:60,
+                top:MediaQuery.of(context).size.height/6,
+                left:MediaQuery.of(context).size.width/6,
 
                 child:Container(
                   alignment: Alignment(0.0 , 0.0),
@@ -152,15 +169,16 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Centre Circle
               Positioned(
-                  top:160,
-//                  left:20,
+                  top:MediaQuery.of(context).size.height/3.8,
+                  left:MediaQuery.of(context).size.width/50,
 
                   child:Container(
 //            color:Colors.red,
 
-                      height: 400,
-                      width:450,
-
+//                      height: 400,
+//                      width:450,
+                      height: MediaQuery.of(context).size.height/1.7,
+                      width:MediaQuery.of(context).size.width/0.8,
                       child:Image(
                         image:AssetImage('assets/app_mp/circles_center bg.png'),
                         fit:BoxFit.fill,
@@ -172,8 +190,8 @@ class _MyHomePageState extends State<ContentsPage> {
 
               // Triangle Centre
               Positioned(
-                  top:230,
-                  left:20,
+                  top:MediaQuery.of(context).size.height/2.8,
+                  left:MediaQuery.of(context).size.width/15,
                   child:Image(
                       image:AssetImage('assets/app_mp/triangle_center bg above circle.png'),
                       fit:BoxFit.fill,
@@ -186,12 +204,13 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Black overlay behind timer
               Positioned(
-                  top:145,
+                  top:MediaQuery.of(context).size.height/4.4,
                   child:Image(
                       image:AssetImage('assets/app_mp/black overlay_behind timer.png'),
                       width:MediaQuery.of(context).size.width/1.2
                   )
               ),
+
               //Timer
 //              Positioned(
 //                  top:150,
@@ -206,7 +225,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Bottom Background
 
               Positioned(
-                  top:470,
+                  top:MediaQuery.of(context).size.height/1.37,
 
 
                   child: Image(
@@ -224,8 +243,7 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //About ImageBox
               Positioned(
-                  top :220,
-//                  left:-35,
+                  top :MediaQuery.of(context).size.height/3,
                   child: FlatButton(
                     onPressed: (){
                       Navigator.pushNamed(context, AboutPage.routeName ,arguments: user);
@@ -241,7 +259,7 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Events ImageBox
               Positioned(
-                  top:310,
+                  top :MediaQuery.of(context).size.height/2.1,
                   child:FlatButton(
                       child:Image(
                           image:AssetImage('assets/app_mp/events.png'),
@@ -251,10 +269,10 @@ class _MyHomePageState extends State<ContentsPage> {
                       ),
                       onPressed:(){}
                   )),
+
               //Workshops ImageBox
               Positioned(
-                  top:400,
-//                  left:-35,
+                  top :MediaQuery.of(context).size.height/1.6,
 
                   child:FlatButton(
                     onPressed: (){
@@ -271,94 +289,83 @@ class _MyHomePageState extends State<ContentsPage> {
 
               //Campus Ambassador behind icon
               Positioned(
-                  bottom:14,
-                  right:5,
-
+                  bottom:MediaQuery.of(context).size.height/50,
+                  right:MediaQuery.of(context).size.width/65,
                   child: Image(
                       image: AssetImage('assets/app_mp/campus ambassador_behind icon .png'),
                       fit:BoxFit.fill,
                       height:MediaQuery.of(context).size.height/5.5
-//                      width:2*size.width
                   )
               ),
 
               //Campus Ambassador lower icon
               Positioned(
-                  bottom: 64,
-                  right: 43,
+                  bottom: MediaQuery.of(context).size.height/10,
+                  right: MediaQuery.of(context).size.width/8,
                   child: Image(
                     image: AssetImage('assets/app_mp/campus ambassadors_icon lower.png'),
                     fit:BoxFit.fill,
 //                    width:MediaQuery.of(context).size.width/4,
 
-                    height:MediaQuery.of(context).size.height/15.5,
+                    height:MediaQuery.of(context).size.height/17.5,
                   )
               ),
 
               //Gallery behind Icon
-              //Gallery behind Icon
               Positioned(
-                  bottom: 12,
-                  left: 115,
-
-
+                  bottom:MediaQuery.of(context).size.height/50,
+                  right:MediaQuery.of(context).size.width/2.82,
                   child: Image(
                     image: AssetImage('assets/app_mp/gallery_behind icon.png'),
-//                    color: Colors.white,
                     fit:BoxFit.fill,
-//                    width:0.7*size.width,
                     height:MediaQuery.of(context).size.height/5.5,
                   )
               ),
 
+              //Galery lower icon
               Positioned(
-                  bottom: 66,
-                  right: 167,
+                  bottom: MediaQuery.of(context).size.height/9.5,
+                  right: MediaQuery.of(context).size.width/2.15,
 
 
                   child: Image(
                     image: AssetImage('assets/app_mp/Gallery_icon lower.png'),
 //                    color: Colors.white,
                     fit:BoxFit.fill,
-                    width:MediaQuery.of(context).size.width/8.5,
+                    width:MediaQuery.of(context).size.width/9.5,
                     height:MediaQuery.of(context).size.height/23,
                   )
               ),
+
               //Our sponsors behind icon
               Positioned(
-                  bottom: 17,
-                  right: 258,
-
+                  bottom:MediaQuery.of(context).size.height/38,
+                  right:MediaQuery.of(context).size.width/1.42,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_behind icon.png'),
 //                    color: Colors.white,
                     fit:BoxFit.fill,
-//                    width:0.7*size.width,
-                    height:MediaQuery.of(context).size.height/6.2,
-                  )
+                    width:MediaQuery.of(context).size.width/3,
+                    height:MediaQuery.of(context).size.height/5.8,  )
               ),
 
               //Our sponsors lower icon
               Positioned(
-                  bottom: 62,
-                  left: 28,
-
+                  bottom: MediaQuery.of(context).size.height/9.7,
+                  right: MediaQuery.of(context).size.width/1.22,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_icon lower.png'),
-//                    color: Colors.white,
                     fit:BoxFit.fill,
-//                    width:0.7*size.width,
-                    height:MediaQuery.of(context).size.height/17.5,
+                    height:MediaQuery.of(context).size.height/17.8,
                   )
               ),
 
-
+          //Dividers and icons
               Positioned(
-                  bottom: 1,
-                  right: 70,
-
+                  bottom:MediaQuery.of(context).size.height/230,
+                  left: MediaQuery.of(context).size.width/7.5,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/dividers social media_bottom.png'),
@@ -369,8 +376,8 @@ class _MyHomePageState extends State<ContentsPage> {
                   )
               ),
               Positioned(
-                  bottom:1.8,
-                  left: 60,
+                  bottom:MediaQuery.of(context).size.height/250,
+                  left: MediaQuery.of(context).size.width/6,
 
 
                   child: Image(
@@ -382,8 +389,8 @@ class _MyHomePageState extends State<ContentsPage> {
                   )
               ),
               Positioned(
-                  bottom:1.5,
-                  left: 110,
+                  bottom:MediaQuery.of(context).size.height/250,
+                  left: MediaQuery.of(context).size.width/3.3,
 
 
                   child: Image(
@@ -395,8 +402,8 @@ class _MyHomePageState extends State<ContentsPage> {
                   )
               ),
               Positioned(
-                  bottom:1.5,
-                  left: 158,
+                  bottom:MediaQuery.of(context).size.height/250,
+                  left: MediaQuery.of(context).size.width/2.3,
 
 
                   child: Image(
@@ -409,9 +416,8 @@ class _MyHomePageState extends State<ContentsPage> {
               ),
 
               Positioned(
-                  bottom:2,
-                  right: 120,
-
+                  bottom:MediaQuery.of(context).size.height/250,
+                  left: MediaQuery.of(context).size.width/1.73,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/facebook_icon.png'),
@@ -423,9 +429,8 @@ class _MyHomePageState extends State<ContentsPage> {
               ),
 
               Positioned(
-                  bottom:2,
-                  right: 77,
-
+                  bottom:MediaQuery.of(context).size.height/250,
+                  left: MediaQuery.of(context).size.width/1.42,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/instagram_icon.png'),
