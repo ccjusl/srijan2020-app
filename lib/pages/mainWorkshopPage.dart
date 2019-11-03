@@ -29,9 +29,11 @@ class WorkshopPage extends StatelessWidget {
   final double height1 = 80.0;
   final double width1 = 150.0;
   final FirebaseUser user;
+  final AuthCredential credential;
 
   WorkshopPage({
     @required this.user,
+    @required this.credential,
   });
 
   Widget welcomeText(String s) {
@@ -493,7 +495,7 @@ class WorkshopPage extends StatelessWidget {
                         ),
                         child: FlatButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, WorkShop1.RouteName, arguments: user);
+                            Navigator.pushNamed(context, WorkShop1.RouteName, arguments: Info(user: user, credential: credential));
                           },
                           child: Image.asset('assets/nivt_logo (1).png' , height: 80.0, width: 120.0,),
                         ),

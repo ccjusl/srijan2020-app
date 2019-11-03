@@ -18,26 +18,29 @@ class Router{
         break;
 
       case SignUp.RouteName:
-        final args = settings.arguments;
-        return MaterialPageRoute( builder: (_) => SignUp(user: args));
+        final Info args = settings.arguments;
+        return MaterialPageRoute( builder: (_) => SignUp(user: args.user,credential: args.credential));
         break;
 
       case ContentsPage.RouteName:
-        final args = settings.arguments;
-        return MaterialPageRoute(builder: (_)=>ContentsPage(user :args));
+        final Info args = settings.arguments;
+        return MaterialPageRoute(builder: (_)=>ContentsPage(user: args.user , credential: args.credential));
         break;
 
       case WorkshopPage.routeName:
-        final args = settings.arguments;
-        return MaterialPageRoute(builder: (_)=> WorkshopPage(user:args));
+        final Info args = settings.arguments;
+        return MaterialPageRoute(builder: (_)=> WorkshopPage(user: args.user,credential: args.credential));
+        break;
 
       case AboutPage.routeName:
         final args =settings.arguments;
         return MaterialPageRoute(builder: (_)=> AboutPage(user: args));
+        break;
 
       case WorkShop1.RouteName:
-        final args =settings.arguments;
-        return MaterialPageRoute(builder: (_)=> WorkShop1(user: args));
+        final Info args =settings.arguments;
+        return MaterialPageRoute(builder: (_)=> WorkShop1(user: args.user,credential: args.credential));
+        break;
 
       default:
         return MaterialPageRoute(

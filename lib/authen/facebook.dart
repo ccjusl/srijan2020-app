@@ -31,8 +31,9 @@ class FBAuth {
 
     AuthResult authResult = null;
     FirebaseUser user =null;
+    AuthCredential credential =null;
     if ( result.status == FacebookLoginStatus.loggedIn) {
-      final AuthCredential credential = FacebookAuthProvider.getCredential(
+      credential = FacebookAuthProvider.getCredential(
           accessToken: result.accessToken.token);
 
       authResult = (await FBAuth()._auth.signInWithCredential(
@@ -43,20 +44,16 @@ class FBAuth {
 
     if (authResult.additionalUserInfo.isNewUser ) {
       print('New user');
-      Navigator.pushNamed(FBAuth.context, SignUp.RouteName, arguments: user);
+      Navigator.pushNamed(FBAuth.context, SignUp.RouteName, arguments: Info(
+        user: user,credential:credential
+      ));
     }
     else {
       print('old user');
 //      Navigator.pushNamed(FBAuth.context, SignUp.RouteName , arguments: user);// change to events page
-      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName, arguments: user);// change to events page
+      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName, arguments: Info(user: user , credential: credential));// change to events page
     }
-    // firebase authentication done !!
-    // Returning user data for furthur use
-    final graphResponse = await http.get(
-        'https://graph.facebook.com/${result.accessToken.userId}?fields=name,first_name,last_name,picture.height(200)&access_token=${result.accessToken.token}'
-    );
-    final profile = JsonDecoder().convert(graphResponse.body);
-    print(profile.toString());
+
   }
   FbReturn getApi(){
     signInWithFB().then((api){
