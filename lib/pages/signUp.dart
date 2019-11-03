@@ -1,20 +1,33 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:srijan_app/pages/login.dart';
 import 'package:srijan_app/pages/menu.dart';
 
+class Info{
+  final FirebaseUser user;
+  final AuthCredential credential;
+  Info({
+   @required this.user,
+   @required this.credential,
+});
+}
 
 
 class SignUp extends StatefulWidget{
   static const RouteName = '\signup';
   final FirebaseUser user;
+  final AuthCredential credential;
   SignUp({
     @required this.user,
+    @required this.credential,
 });
   @override
-  SignUpState createState() => SignUpState(user: user);
+  SignUpState createState() => SignUpState(user: user, credential : credential);
 }
 
 class SignUpState extends State<SignUp>{
@@ -32,29 +45,14 @@ class SignUpState extends State<SignUp>{
   final FirebaseDatabase database = new FirebaseDatabase();
   List<DropdownMenuItem<String>> listDrop =[];
 
-  void addData(){
-    listDrop=[];
-    listDrop.add(DropdownMenuItem(
-      child: new Text('1st YEAR'),
-      value: '1st',
-    ));
-    listDrop.add(DropdownMenuItem(
-      child: new Text('2nd YEAR'),
-      value: '2nd',
-    ));
-    listDrop.add(DropdownMenuItem(
-      child: new Text('3rd YEAR'),
-      value: '3rd',
-    ));
-    listDrop.add(DropdownMenuItem(
-      child: new Text('4th YEAR'),
-      value: '4th',
-    ));
-  }
   final FirebaseUser user;
+  final AuthCredential credential;
+
   SignUpState({
     @required this.user,
-});
+    @required this.credential,
+}
+);
   TextEditingController controller1;
   TextEditingController controller2;
   TextEditingController controller3;
@@ -71,6 +69,7 @@ class SignUpState extends State<SignUp>{
     controller4 = new TextEditingController();
     controller5 = new TextEditingController();
     controller6 = new TextEditingController();
+
     controller1.text = user.displayName;
     controller2.text = (user.email == null ? "" :user.email);
     state_SIGNED_OUT=0;
@@ -80,6 +79,7 @@ class SignUpState extends State<SignUp>{
     state_CREATE_BASICPROFILE_EMAIL_VERIFIED=5;
     state_INVALID=-1;
     state = state_SIGNED_OUT;
+
   }
 
 
@@ -412,8 +412,8 @@ class SignUpState extends State<SignUp>{
                             style: TextStyle(
                                 color: Colors.white, fontWeight: FontWeight.w900),
                             validator: (value) {
-                              if (value.isEmpty || ((value!='1st') && (value != '2nd') && (value!='3rd') && (value!='4th'))) {
-                                return 'Required , 1st , 2nd , 3rd or 4th';
+                              if (value.isEmpty || ((value!='1st') && (value != '2nd') && (value!='3rd') && (value!='4th') && ( value != '5th'))) {
+                                return 'Required , 1st , 2nd , 3rd or 4th,5th';
                               }
                             },
                             // onSaved: (val) =>
@@ -462,61 +462,99 @@ class SignUpState extends State<SignUp>{
       print(dataSnapshot.value.toString());
       print('Snapshot taken');
 
-      if ( dataSnapshot.value == null){
+      if ( dataSnapshot.value == null) {
         // Push into database
         print('snapshot null');
         print(user.email);
         print(user_email);
         print(user.isEmailVerified);
-        var prof = new SplayTreeMap<dynamic , dynamic>();
-        prof['name']=user_name;
-        prof['email']=user_email;
-        prof['college']=user_college;
-        prof['course']=user_course;
-        prof['year']=user_year;
-        prof['degree'] =user_degree;
+        var prof = new SplayTreeMap<dynamic, dynamic>();
+        prof['name'] = user_name;
+        prof['email'] = user_email;
+        prof['college'] = user_college;
+        prof['course'] = user_course;
+        prof['year'] = user_year;
+        prof['degree'] = user_degree;
+        prof['updatetime'] = DateTime
+            .now()
+            .toUtc()
+            .millisecondsSinceEpoch;
+        print(DateTime
+            .now()
+            .toUtc()
+            .millisecondsSinceEpoch);
+//        var dataRef = database.reference().child('$dname').orderByChild('email');
 
-        prof['updatetime']=DateTime.now().toUtc().millisecondsSinceEpoch;
-        print(DateTime.now().toUtc().millisecondsSinceEpoch);
 
-        if ( user.email == user_email && user.isEmailVerified){
-            print('pushing value');
+        if  (user.email == user_email && user.isEmailVerified) {
+          print('pushing value');
+          _push(prof);
+        }
+        else if ( user.email != user_email){
+          _info(context);
+          user.updateEmail(user_email).then((void h) async{
+            await user.sendEmailVerification();
+            if (user.isEmailVerified) {
               _push(prof);
+            }
+          }).catchError((error) {
+            print('1st');
+            print(error);
+            switch( error.code){
+              case 'ERROR_INVALID_EMAIL':
+                _ale(context, error);
+                break;
+              case 'ERROR_EMAIL_ALREADY_IN_USE':
+                _ale(context, error);
 
+                break;
+              case 'ERROR_REQUIRES_RECENT_LOGIN':
+                FirebaseAuth auth = FirebaseAuth.instance;
+                user.reauthenticateWithCredential(credential).then((void h)async{
+                    await user.updateEmail(user_email).then((void d){
+                      if ( user.isEmailVerified){
+                        _push(prof);
+                      }
+
+                    }).catchError((error){
+                      switch(error.code){
+                        case 'ERROR_EMAIL_ALREADY_IN_USE':
+                          _ale(context, error);
+
+                          break;
+                        default:
+                          print('do nothinh');
+                          break;
+                      }
+
+
+                    });
+                }).catchError((error){
+                  FirebaseAuth auth = FirebaseAuth.instance;
+                  auth.signOut();
+                  Navigator.pushNamed(context, Login.RouteName);
+
+                });
+                break;
+              case 'ERROR_EMAIL_ALREADY_IN_USE':
+                _ale(context, error);
+                break;
+              default:
+                print('NOTHING LIFE IS VOID');
+                break;
+
+            }
+          });
         }
         else{
-            _info(context);
-            print('Updating email ,Click on register again');
-            user.sendEmailVerification().then((void h) {
-              user.updateEmail(user_email).then((void h) {
-                if (user.isEmailVerified) {
-                  _push(prof);
-                }
-              }).catchError((error) {
-                if (error == 'ERROR_EMAIL_ALREADY_IN_USE') {
-                  print('error');
-                  print(error);
-                  _error(context);
-                }
-                else {
-                  print('diff error');
-                  print(error);
-                  _error(context);
-                }
-              });
-            }).catchError((error){
-              print(error);
-              _error(context);
-            });
-          }
+          FirebaseAuth auth = FirebaseAuth.instance;
+          auth.signOut();
+          Navigator.pushNamed(context, Login.RouteName);
 
-
-
+        }
       }
       else if (dataSnapshot.value['complete'] == 1){
         print('contained');
-        //alert user already registered
-        // Using navigator push to events page
         await _alert(context);
         Navigator.pushNamed(context, ContentsPage.RouteName, arguments: user);
 
@@ -536,7 +574,12 @@ class SignUpState extends State<SignUp>{
     }).catchError((error){
       if(state==state_FETCH_PROFILE)
       {
+        print('here');
         print(error);
+
+          _ale(context, error);
+
+
         _error(context);
       }
     });
@@ -547,18 +590,18 @@ class SignUpState extends State<SignUp>{
   _push(snapshot) async{
     try {
     var ref = database.reference().child('${dname}${user.uid}${baseprofile}');
-    print(ref.path);
     snapshot['complete']=1;
     print(snapshot.toString());
-
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    assert( user.uid == (await _auth.currentUser()).uid);
       await ref.set(snapshot);
       Navigator.pushNamed(context, ContentsPage.RouteName , arguments: user);
 
     }
     catch(error){
-      _error(context);
-      print(error);
-      print('cant update db');
+      _errorinfo(context);
+      print(error.message);
+
     }
 
 
@@ -589,6 +632,32 @@ class SignUpState extends State<SignUp>{
   }
 
 
+  Future<void> _ale(BuildContext context , PlatformException error) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text(error.code),
+          content: new Text(error.message),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
   Future<void> _error(BuildContext context) {
     // flutter defined function
     showDialog(
@@ -599,6 +668,31 @@ class SignUpState extends State<SignUp>{
         return AlertDialog(
           title: new Text('Error'),
           content: new Text('Sources may be weak internet connection or server is down , please try after some time'),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Future<void> _errorinfo(BuildContext context) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text('Error'),
+          content: new Text('Make sure that college name is more than 6 characters and does not have any special characters , year is of the format 1st, 2nd , 3rd or 4th ,the email address provided is valid , and no field is empty'),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:srijan_app/pages/menu.dart';
 import 'dart:io';
-
 import 'package:srijan_app/pages/signUp.dart';
 
 
@@ -15,94 +14,61 @@ class GoogleReturn{
     @required this.auth,
 });
 }
+
+
 class GoogleAuth {
   static BuildContext context;
-  static FirebaseAuth _auth = FirebaseAuth.instance;
-  static GoogleSignIn _googleSignIn = GoogleSignIn();
 
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   static Future<void> signInWithGoogle() async {
-    FirebaseUser user;
-    AuthResult authResult;
-    AuthCredential credential;
+
+    GoogleSignInAccount googleUser;
 
 
-
-//    await _googleSignIn.signIn().then((GoogleSignInAccount result) async{
-//
-//      await result.authentication.then((googleKey) async{
-//
-//        print(googleKey.accessToken);
-//        print(googleKey.idToken);
-//        print(_googleSignIn.currentUser.displayName);
-//
-//        await GoogleAuthProvider.getCredential(
-//            idToken: , accessToken: null
-//        )
-//
-//
-//
-//
-//      }).catchError((err){
-//        _error(context);
-//        print('inner error');
-//      });
-//    }).catchError((err){
-//      _error(context);
-//      print('error occured');
+    await GoogleSignIn().signIn().then((GoogleSignInAccount account) async{
+//      googleUser = account;
 //    });
-    try {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      if (await _googleSignIn.isSignedIn()) {
-        final GoogleSignInAuthentication googleAuth = await googleUser
-            .authentication;
-        credential = GoogleAuthProvider.getCredential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-      }
-      }
-    catch (error) {
-      GoogleAuth()._error(GoogleAuth.context);
-      print('sign in failed');
-      print('error');
-    }
-    try {
-      authResult = (await _auth.signInWithCredential(
-          credential));
-      user = authResult.user;
-    }
-    catch (error) {
-      GoogleAuth()._error(GoogleAuth.context);
-      print(error);
-    }
-    try {
-      final FirebaseUser currentUser = await _auth.currentUser();
-      assert( user.uid == currentUser.uid);
-    }
-    catch (error) {
-      print(error);
-    }
-    try {
-      if (authResult.additionalUserInfo.isNewUser) {
-        print('New user');
-        Navigator.pushNamed(
-            GoogleAuth.context, SignUp.RouteName, arguments: user);
-      }
-      else {
-        print('old user');
+//    await _googleSignIn.signInSilently().then((GoogleSignInAccount acc)async{
+      await account.authentication.then((GoogleSignInAuthentication authen) async{
+
+        assert( authen.accessToken!= null);
+        print('Access token');
+        print(authen.accessToken);
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken: authen.idToken, accessToken: authen.accessToken);
+        print(credential.toString());
+        assert(credential != null);
+        print(credential);
+
+        final AuthResult result = (await GoogleAuth()._auth.signInWithCredential(credential));
+        final user = result.user;
+        print(user.displayName);
+        print(user.photoUrl);
+          try {
+            if (result.additionalUserInfo.isNewUser) {
+              print('New user');
+              Navigator.pushNamed(
+                  GoogleAuth.context, SignUp.RouteName, arguments: Info(user: user, credential: credential));
+            }
+            else {
+              print('old user');
 //      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
-        Navigator.pushNamed(
-            GoogleAuth.context, ContentsPage.RouteName, arguments: user);
-      }
-    } catch (error) {
-      GoogleAuth()._error(GoogleAuth.context);
-    }
+              Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName, arguments: Info(user:user, credential: credential));
+            }
+          } catch (error) {
+            GoogleAuth()._error(GoogleAuth.context);
+          }
+
+      }).catchError((error){
+        GoogleAuth()._error(GoogleAuth.context);
+        print(error);
+      });
+    });
 
 
 
 
-//    return GoogleReturn( user: user , auth: authResult);
+
+
   }
 
   Future<void> _error(BuildContext context) {

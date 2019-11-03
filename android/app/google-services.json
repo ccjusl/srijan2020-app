@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "614644848015-l3oi1ng0se02p8nlagu3pj76a64qk49l.apps.googleusercontent.com",
+          "client_id": "614644848015-cmqed55othnt5o2332s2mi2tqg0cehrn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.srijanju.in.srijan_app",
@@ -40,10 +40,10 @@
               "client_type": 3
             },
             {
-              "client_id": "614644848015-o61jus6b399fsj6j7lnsjko1pv4tfn54.apps.googleusercontent.com",
+              "client_id": "614644848015-nb86q94jekitj1j4n8jsindbjja9acgk.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "in.srijanju.app"
+                "bundle_id": "app.srijanju.in.srijanApp"
               }
             }
           ]

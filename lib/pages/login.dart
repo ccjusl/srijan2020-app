@@ -121,13 +121,13 @@ class Login extends StatelessWidget {
                         SizedBox(height: 40.0),
 
                         GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               //FB Authentication code goes here
 //                              FBAuth().getApi().then((FbReturn api){
 //                                api.
 //                              })
                             FBAuth.context = context;
-                            FBAuth.signInWithFB();
+                            await FBAuth.signInWithFB();
                             },
                             child: Image.asset('assets/fb.png', width: 270.0,
                               height: 50.0,
@@ -135,11 +135,11 @@ class Login extends StatelessWidget {
                         ),
                         SizedBox(height: 20.0),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async{
                               // Google Authentication code goes here
 
                          GoogleAuth.context =context;
-                         GoogleAuth.signInWithGoogle();
+                         await GoogleAuth.signInWithGoogle();
 
                           },
                           child: Image.asset('assets/gmail.png', width: 270.0,
