@@ -451,6 +451,21 @@ class MyApp extends StatelessWidget {
 }*/
 
 
+/*void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      home: ContentsPage(),
+    );
+  }
+}*/
+
+
 class ContentsPage extends StatefulWidget {
   static const RouteName = '\menu';
   final FirebaseUser user;
@@ -684,6 +699,9 @@ class _MyHomePageState extends State<ContentsPage> {
                     },
                     child: Image(
                       image:AssetImage('assets/app_mp/about.png'),
+
+                        image:AssetImage('assets/app_mp/about.png'),
+
                       width:MediaQuery.of(context).size.width/1.2,
                       height:MediaQuery.of(context).size.height/7.5,
                       fit:BoxFit.cover,
@@ -797,6 +815,9 @@ class _MyHomePageState extends State<ContentsPage> {
               ),
 
               //Dividers and icons
+
+          //Dividers and icons
+
               Positioned(
                   bottom:MediaQuery.of(context).size.height/230,
                   left: MediaQuery.of(context).size.width/7.5,

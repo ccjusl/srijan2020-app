@@ -54,8 +54,8 @@ class HomePage extends StatelessWidget {
                 width: 0.75 * size.width,
               )),
           Positioned(
-              top: 545,
-              left: 115,
+              top: 550,
+              left: 124,
               child: FlatButton(
                 child: SizedBox(
                     height: 50,
