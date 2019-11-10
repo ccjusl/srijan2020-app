@@ -994,18 +994,22 @@ class WorkShop1 extends StatelessWidget {
 
             //welcome dp added
             Positioned(
-              left: deviceWidth * 0.143,
-              top: deviceHeight * 0.14,
-              child: Container(
-                height: deviceHeight * 0.16,
-                width: deviceWidth * 0.15,
-                // color: Colors.white,
-                alignment: Alignment(-1.0, -1.0),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    //fit: BoxFit.fill,
-                    image: NetworkImage(
-                      user.photoUrl,
+              left: deviceWidth * 0.152,
+              top: deviceHeight * 0.18,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: Container(
+                  height: 50.0,
+                  width: 50.0,
+                  // color: Colors.white,
+                  alignment: Alignment(-1.0, -1.0),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(
+
+                        user.photoUrl,
+                      ),
                     ),
                   ),
                 ),
@@ -1015,11 +1019,11 @@ class WorkShop1 extends StatelessWidget {
 
             //rounded rectangle added under dp***********
             Positioned(
-              left: deviceWidth * 0.051,
-              top: deviceHeight * 0.128,
+              left: deviceWidth * 0.041,
+              top: deviceHeight * 0.258,
               child: Container(
-                height: deviceHeight * 0.35,
-                width: deviceWidth * 0.35,
+                height: 50.0,
+                width: 140.0,
                 // color: Colors.white,
                 alignment: Alignment(-1.0, -1.0),
                 decoration: BoxDecoration(
@@ -1301,7 +1305,7 @@ class WorkShop1 extends StatelessWidget {
   5. Un-Supervised Learning Algorithm
  K-Means Clustering, Association Rule Mining
  ''',
-                              style: TextStyle(color: Colors.white, fontSize: 14.0),
+                              style: TextStyle(color: Colors.white, fontSize: 14.0,decoration: TextDecoration.none),
                               textAlign: TextAlign.justify),
                           SizedBox(height: 30.0),
                           Text('''Case Study
@@ -1311,7 +1315,7 @@ class WorkShop1 extends StatelessWidget {
   If you can tell the customers what they might want to buy – it not only improves your sales, but also the customer experience and ultimately life time value.
 2.Credit Card Fraud detection
    We will use a variety of machine learning algorithms that will be able to discern fraudulent from non-fraudulent one. By the end of this machine learning project, you will learn how to implement machine learning algorithms to perform classification.''',
-                              style: TextStyle(fontSize: 14.0, color: Colors.white),
+                              style: TextStyle(fontSize: 14.0, color: Colors.white,decoration: TextDecoration.none),
                               textAlign: TextAlign.justify),
                           SizedBox(height: 20.0),
                           Text(
@@ -1321,7 +1325,7 @@ class WorkShop1 extends StatelessWidget {
 • Laptop must be carried.
 • Recommended laptop specifications: 2gb memory, 10gb hdd space, i3 3rd gen or higher.
 • Required softwares will be provided.''',
-                            style: TextStyle(fontSize: 14.0, color: Colors.white),
+                            style: TextStyle(fontSize: 14.0, color: Colors.white, decoration: TextDecoration.none),
                             textAlign: TextAlign.justify,
                           )
                         ],
@@ -1396,11 +1400,20 @@ class WorkShop1 extends StatelessWidget {
         .orderByValue()
         .once()
         .then((dataSnapshot) async {
-      if (dataSnapshot.value['complete'] != 1) {
+      if (dataSnapshot.value == null) {
         _reg(context);
         // Make registration first dialog await
         Navigator.pushNamed(context, SignUp.RouteName, arguments: Info(user: user, credential: credential));
       } else {
+        if ( dataSnapshot.value['complete'] != 1){
+          print('hello');
+          Navigator.pushNamed(context, SignUp.RouteName, arguments: Info(user: user, credential: credential));
+          return;
+
+        }
+        print('Complete');
+        print(dataSnapshot.value);
+        print(dataSnapshot.value['complete']);
         await http.post(
             'https://us-central1-srijanju20.cloudfunctions.net/app/pay',
             body: map,

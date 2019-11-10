@@ -699,9 +699,6 @@ class _MyHomePageState extends State<ContentsPage> {
                     },
                     child: Image(
                       image:AssetImage('assets/app_mp/about.png'),
-
-                        image:AssetImage('assets/app_mp/about.png'),
-
                       width:MediaQuery.of(context).size.width/1.2,
                       height:MediaQuery.of(context).size.height/7.5,
                       fit:BoxFit.cover,

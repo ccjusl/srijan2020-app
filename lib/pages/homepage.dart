@@ -67,22 +67,22 @@ class HomePage extends StatelessWidget {
                           Navigator.pushNamed(context, Login.RouteName);
                 },
               )),
-          Positioned(
-              top: 620,
-              left: 35,
-              child: Center(
-                child: FlatButton(
-                  child: new Image(
-                    image: AssetImage(
-                      'assets/no_login.png',
-                    ),
-                    width: 0.76 * size.width,
-                  ),
-                  onPressed: (){
-                    Navigator.pushNamed(context, SignUp.RouteName);
-                  },
-                ),
-              ))
+//          Positioned(
+//              top: 620,
+//              left: 35,
+//              child: Center(
+//                child: FlatButton(
+//                  child: new Image(
+//                    image: AssetImage(
+//                      'assets/no_login.png',
+//                    ),
+//                    width: 0.76 * size.width,
+//                  ),
+//                  onPressed: (){
+//                    Navigator.pushNamed(context, SignUp.RouteName);
+//                  },
+//                ),
+//              ))
         ],
       ),
     );
