@@ -1414,6 +1414,7 @@ class WorkShop1 extends StatelessWidget {
         print('Complete');
         print(dataSnapshot.value);
         print(dataSnapshot.value['complete']);
+
         await http.post(
             'https://us-central1-srijanju20.cloudfunctions.net/app/pay',
             body: map,
@@ -1421,7 +1422,6 @@ class WorkShop1 extends StatelessWidget {
               'Authorization': 'Bearer${await user.getIdToken()}',
             }).then((response) async {
           var resp = await jsonDecode(response.toString());
-
           var postbody = {};
           resp.forEach((k, v) {
             if (k != 'URL') {

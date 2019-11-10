@@ -26,32 +26,32 @@ class FBAuth {
 
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  static Future< void > signInWithFB() async{
+  static Future<void> signInWithFB() async{
     final FacebookLoginResult result  = await FacebookLogin().logIn(['public_profile']);
 
-    AuthResult authResult = null;
-    FirebaseUser user =null;
-    AuthCredential credential =null;
+
     if ( result.status == FacebookLoginStatus.loggedIn) {
-      credential = FacebookAuthProvider.getCredential(
+     final credential = FacebookAuthProvider.getCredential(
           accessToken: result.accessToken.token);
 
-      authResult = (await FBAuth()._auth.signInWithCredential(
+      final authResult = (await FBAuth()._auth.signInWithCredential(
           credential));
-      user = authResult.user;
-    }
+      final user = authResult.user;
 
 
-    if (authResult.additionalUserInfo.isNewUser ) {
-      print('New user');
-      Navigator.pushNamed(FBAuth.context, SignUp.RouteName, arguments: Info(
-        user: user,credential:credential
-      ));
-    }
-    else {
-      print('old user');
+      if (authResult.additionalUserInfo.isNewUser) {
+        print('New user');
+        Navigator.pushNamed(FBAuth.context, SignUp.RouteName, arguments: Info(
+            user: user, credential: credential
+        ));
+      }
+      else {
+        print('old user');
 //      Navigator.pushNamed(FBAuth.context, SignUp.RouteName , arguments: user);// change to events page
-      Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName, arguments: Info(user: user , credential: credential));// change to events page
+        Navigator.pushNamed(FBAuth.context, ContentsPage.RouteName,
+            arguments: Info(
+                user: user, credential: credential)); // change to events page
+      }
     }
 
   }
