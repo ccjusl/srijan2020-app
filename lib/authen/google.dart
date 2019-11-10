@@ -41,8 +41,8 @@ class GoogleAuth {
 
         final AuthResult result = (await GoogleAuth()._auth.signInWithCredential(credential));
         final user = result.user;
-        print(user.displayName);
-        print(user.photoUrl);
+//        print(user.displayName);
+//        print(user.photoUrl);
           try {
             if (result.additionalUserInfo.isNewUser) {
               print('New user');
@@ -52,7 +52,7 @@ class GoogleAuth {
             else {
               print('old user');
 //      Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName , arguments: user);
-              Navigator.pushNamed(GoogleAuth.context, SignUp.RouteName, arguments: Info(user:user, credential: credential));
+              Navigator.pushNamed(GoogleAuth.context, ContentsPage.RouteName, arguments: Info(user:user, credential: credential));
             }
           } catch (error) {
             GoogleAuth()._error(GoogleAuth.context);
