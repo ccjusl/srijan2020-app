@@ -318,8 +318,8 @@ class SignUpState extends State<SignUp>{
                             style: TextStyle(
                                 color: Colors.white, fontWeight: FontWeight.w900),
                             validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Required *';
+                              if (value.isEmpty && value.length < 2) {
+                                return 'Required * more than 2 char';
                               }
                             },
                             // onSaved: (val) =>
@@ -365,8 +365,8 @@ class SignUpState extends State<SignUp>{
                             style: TextStyle(
                                 color: Colors.white, fontWeight: FontWeight.w900),
                             validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Required *';
+                              if (value.isEmpty && value.length < 2) {
+                                return 'Required * more than 2 char';
                               }
                             },
                             // onSaved: (val) =>
@@ -488,14 +488,14 @@ class SignUpState extends State<SignUp>{
 
         if  (user.email == user_email && user.isEmailVerified) {
           print('pushing value');
-          _push(prof);
+          _push(prof, context);
         }
         else if ( user.email != user_email){
           _info(context);
           user.updateEmail(user_email).then((void h) async{
             await user.sendEmailVerification();
             if (user.isEmailVerified) {
-              _push(prof);
+              _push(prof, context);
             }
           }).catchError((error) {
             print('1st');
@@ -513,7 +513,7 @@ class SignUpState extends State<SignUp>{
                 user.reauthenticateWithCredential(credential).then((void h)async{
                     await user.updateEmail(user_email).then((void d){
                       if ( user.isEmailVerified){
-                        _push(prof);
+                        _push(prof, context);
                       }
 
                     }).catchError((error){
@@ -532,7 +532,7 @@ class SignUpState extends State<SignUp>{
                 }).catchError((error){
                   FirebaseAuth auth = FirebaseAuth.instance;
                   auth.signOut();
-                  Navigator.pushNamed(context, Login.RouteName);
+                  Navigator.pushNamed(context, Login.RouteName , arguments: Info(user: user, credential:credential));
 
                 });
                 break;
@@ -549,14 +549,14 @@ class SignUpState extends State<SignUp>{
         else{
           FirebaseAuth auth = FirebaseAuth.instance;
           auth.signOut();
-          Navigator.pushNamed(context, Login.RouteName);
+          Navigator.pushNamed(context, Login.RouteName , arguments: Info(user: user, credential: credential));
 
         }
       }
       else if (dataSnapshot.value['complete'] == 1){
         print('contained');
         await _alert(context);
-        Navigator.pushNamed(context, ContentsPage.RouteName, arguments: user);
+        Navigator.pushNamed(context, ContentsPage.RouteName, arguments: Info(user: user, credential: credential));
 
       }
       else{
@@ -587,7 +587,7 @@ class SignUpState extends State<SignUp>{
 
 
   }
-  _push(snapshot) async{
+  _push(SplayTreeMap<dynamic, dynamic> snapshot , BuildContext context) async{
     try {
     var ref = database.reference().child('${dname}${user.uid}${baseprofile}');
     snapshot['complete']=1;
@@ -595,7 +595,7 @@ class SignUpState extends State<SignUp>{
     final FirebaseAuth _auth = FirebaseAuth.instance;
     assert( user.uid == (await _auth.currentUser()).uid);
       await ref.set(snapshot);
-      Navigator.pushNamed(context, ContentsPage.RouteName , arguments: user);
+      Navigator.pushNamed(context, ContentsPage.RouteName , arguments: Info(user: user, credential: credential));
 
     }
     catch(error){
