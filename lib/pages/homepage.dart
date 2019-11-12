@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:srijan_app/authen/facebook.dart';
+import 'package:srijan_app/authen/google.dart';
 import 'package:srijan_app/pages/login.dart';
 import 'package:srijan_app/pages/signUp.dart';
 
-
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,9 +23,9 @@ class HomePage extends StatelessWidget {
             right: -105,
             child: Center(
                 child: Image(
-                  image: AssetImage('assets/circles_upper.png'),
-                  width: 1.5 * size.width,
-                )),
+              image: AssetImage('assets/circles_upper.png'),
+              width: 1.5 * size.width,
+            )),
           ),
           Positioned(
               top: 100,
@@ -63,8 +64,32 @@ class HomePage extends StatelessWidget {
                     child: new Image(
                       image: AssetImage('assets/login_text.png'),
                     )),
-                onPressed: () {
-                          Navigator.pushNamed(context, Login.RouteName);
+                onPressed: () async{
+                  int code;
+                  try {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+                    code = (prefs.getInt('code') ?? 0);
+                  }
+                  catch(error){
+                    print(error);
+                  }
+                  print(code);
+                  if (code == 0) {
+                    Navigator.pushNamed(context, Login.RouteName);
+                  }
+                  else if (code == 1) {
+                    //FB
+                    FBAuth.context = context;
+                    await FBAuth.signInWithFB();
+                  } else if (code == 2) {
+                    //Google
+                    GoogleAuth.context = context;
+                    await GoogleAuth.signInWithGoogle();
+                  }
+
+
                 },
               )),
 //          Positioned(

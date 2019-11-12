@@ -739,7 +739,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Campus Ambassador behind icon
               Positioned(
                   bottom:MediaQuery.of(context).size.height/50,
-                  right:MediaQuery.of(context).size.width/65,
+                  right:MediaQuery.of(context).size.width/25,
                   child: Image(
                       image: AssetImage('assets/app_mp/campus ambassador_behind icon .png'),
                       fit:BoxFit.fill,
@@ -750,7 +750,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Campus Ambassador lower icon
               Positioned(
                   bottom: MediaQuery.of(context).size.height/10,
-                  right: MediaQuery.of(context).size.width/8,
+                  right: MediaQuery.of(context).size.width/6,
                   child: Image(
                     image: AssetImage('assets/app_mp/campus ambassadors_icon lower.png'),
                     fit:BoxFit.fill,
@@ -763,7 +763,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Gallery behind Icon
               Positioned(
                   bottom:MediaQuery.of(context).size.height/50,
-                  right:MediaQuery.of(context).size.width/2.82,
+                  right:MediaQuery.of(context).size.width/3.16,
                   child: Image(
                     image: AssetImage('assets/app_mp/gallery_behind icon.png'),
                     fit:BoxFit.fill,
@@ -774,7 +774,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Galery lower icon
               Positioned(
                   bottom: MediaQuery.of(context).size.height/9.5,
-                  right: MediaQuery.of(context).size.width/2.15,
+                  right: MediaQuery.of(context).size.width/2.25,
 
 
                   child: Image(
@@ -789,7 +789,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Our sponsors behind icon
               Positioned(
                   bottom:MediaQuery.of(context).size.height/38,
-                  right:MediaQuery.of(context).size.width/1.42,
+                  right:MediaQuery.of(context).size.width/1.62,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_behind icon.png'),
@@ -802,7 +802,7 @@ class _MyHomePageState extends State<ContentsPage> {
               //Our sponsors lower icon
               Positioned(
                   bottom: MediaQuery.of(context).size.height/9.7,
-                  right: MediaQuery.of(context).size.width/1.22,
+                  right: MediaQuery.of(context).size.width/1.37,
 
                   child: Image(
                     image: AssetImage('assets/app_mp/our sponsors_icon lower.png'),

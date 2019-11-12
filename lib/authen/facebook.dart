@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:srijan_app/pages/login.dart';
 import 'package:srijan_app/pages/signUp.dart';
 import 'package:srijan_app/pages/menu.dart';
@@ -37,6 +38,9 @@ class FBAuth {
       final authResult = (await FBAuth()._auth.signInWithCredential(
           credential));
       final user = authResult.user;
+
+     SharedPreferences prefs =await SharedPreferences.getInstance();
+     await prefs.setInt('code', 1);
 
 
       if (authResult.additionalUserInfo.isNewUser) {
