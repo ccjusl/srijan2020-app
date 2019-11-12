@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:srijan_app/pages/signUp.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class WorkShop1 extends StatelessWidget {
   static const RouteName = '\work';
 
@@ -612,69 +611,75 @@ Click on the button below to pay ''',
     ));
   }
 
-  void register(BuildContext context) {
-    final FirebaseDatabase database = new FirebaseDatabase();
-    var dname = 'srijan/profile/';
-    var baseprofile = '/parentprofile';
-    var ename = 'nivt';
-    var eprofile = '/' + ename + '/status/summary';
-    var cust = '/' + ename + '/support';
-    var state = 0;
-
-    database
-        .reference()
-        .child('$dname${user.uid}$baseprofile')
-        .orderByValue()
-        .once()
-        .then((dataSnapshot) async {
-      if (dataSnapshot.value == null) {
-        _reg(context);
-        // Make registration first dialog await
-        Navigator.pushNamed(context, SignUp.RouteName,
-            arguments: Info(user: user, credential: credential));
-        return;
-      } else {
-        if (dataSnapshot.value['complete'] != 1) {
-          print('hello');
-          Navigator.pushNamed(context, SignUp.RouteName,
-              arguments: Info(user: user, credential: credential));
-          return;
-        }
-        print('Complete');
-        print(dataSnapshot.value);
-        print(dataSnapshot.value['complete']);
-        database
-            .reference()
-            .child('$dname${user.uid}$eprofile')
-            .orderByValue()
-            .once()
-            .then((dataSnapshot) async {
-          // show alert
-          if (dataSnapshot.value != null) {
-            // if data already present clean the content
-            print("name: " + ename);
-            print("token: " + (await user.getIdToken()).token);
-            final response = await http.post(
-                'https://us-central1-srijanju20.cloudfunctions.net/app/clean',
-                body: '{"name": "' + ename + '"}',
-                headers: {
-                  'Authorization': 'Bearer ${(await user.getIdToken()).token}'
-                });
-            print("response clean: " + response.body.toString());
-            var resp = await JsonDecoder().convert(response.body);
-          }
-          await _pay(context, ename, user); // Pay the money
-
-          // Show the result
-          _perform(context, dataSnapshot);
-        }).catchError((error) {
-          print("err occured: " + error.toString());
-          _error(context);
-        });
-      }
-    }).catchError((error) {
+  void register(BuildContext context) async {
+    String url = "https://srijanju20.firebaseapp.com/nivt.html";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
       _error(context);
-    });
+    }
+//    final FirebaseDatabase database = new FirebaseDatabase();
+//    var dname = 'srijan/profile/';
+//    var baseprofile = '/parentprofile';
+//    var ename = 'nivt';
+//    var eprofile = '/' + ename + '/status/summary';
+//    var cust = '/' + ename + '/support';
+//    var state = 0;
+//
+//    database
+//        .reference()
+//        .child('$dname${user.uid}$baseprofile')
+//        .orderByValue()
+//        .once()
+//        .then((dataSnapshot) async {
+//      if (dataSnapshot.value == null) {
+//        _reg(context);
+//        // Make registration first dialog await
+//        Navigator.pushNamed(context, SignUp.RouteName,
+//            arguments: Info(user: user, credential: credential));
+//        return;
+//      } else {
+//        if (dataSnapshot.value['complete'] != 1) {
+//          print('hello');
+//          Navigator.pushNamed(context, SignUp.RouteName,
+//              arguments: Info(user: user, credential: credential));
+//          return;
+//        }
+//        print('Complete');
+//        print(dataSnapshot.value);
+//        print(dataSnapshot.value['complete']);
+//        database
+//            .reference()
+//            .child('$dname${user.uid}$eprofile')
+//            .orderByValue()
+//            .once()
+//            .then((dataSnapshot) async {
+//          // show alert
+//          if (dataSnapshot.value != null) {
+//            // if data already present clean the content
+//            print("name: " + ename);
+//            print("token: " + (await user.getIdToken()).token);
+//            final response = await http.post(
+//                'https://us-central1-srijanju20.cloudfunctions.net/app/clean',
+//                body: '{"name": "' + ename + '"}',
+//                headers: {
+//                  'Authorization': 'Bearer ${(await user.getIdToken()).token}'
+//                });
+//            print("response clean: " + response.body.toString());
+//            var resp = await JsonDecoder().convert(response.body);
+//          }
+//          await _pay(context, ename, user); // Pay the money
+//
+//          // Show the result
+//          _perform(context, dataSnapshot);
+//        }).catchError((error) {
+//          print("err occured: " + error.toString());
+//          _error(context);
+//        });
+//      }
+//    }).catchError((error) {
+//      _error(context);
+//    });
   }
 
   Future<void> _pay(
@@ -696,15 +701,19 @@ Click on the button below to pay ''',
       // Extracting parameters from the response
       String data = json.encode(postbody);
       String formBody = Uri.encodeQueryComponent(data);
-      String url = resp['URL'] +'?'+ formBody;
-      if ( await canLaunch(url)){
-        await launch(url ,forceWebView: true );
-      }
-      else{
+      String url = resp['URL'] + '?' + formBody;
+      if (await canLaunch(url)) {
+        await launch(url, forceWebView: true);
+      } else {
         _error(context);
       }
+
 //      var respp = await http.post('${resp['URL']}', body: postbody);
 //      print(respp.body.toString());
+
+
+//      var respp = await http.post('${resp['URL']}', body: postbody);
+
     }).catchError((error) {
       print(error);
       _error(context);
