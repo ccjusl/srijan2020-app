@@ -5,6 +5,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:srijan_app/pages/signUp.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class WorkShop1 extends StatelessWidget {
   static const RouteName = '\work';
@@ -691,6 +693,19 @@ Click on the button below to pay ''',
           postbody[k] = v;
         }
       });
+
+      // Extracting parameters from the response
+      String data = json.encode(postbody);
+      String formBody = Uri.encodeQueryComponent(data);
+      String url = resp['URL'] +'?'+ formBody;
+      if ( await canLaunch(url)){
+        await launch(url ,forceWebView: true );
+      }
+      else{
+        _error(context);
+      }
+
+
       var respp = await http.post('${resp['URL']}', body: postbody);
       print(respp.body.toString());
     }).catchError((error) {
