@@ -693,7 +693,6 @@ Click on the button below to pay ''',
           postbody[k] = v;
         }
       });
-
       // Extracting parameters from the response
       String data = json.encode(postbody);
       String formBody = Uri.encodeQueryComponent(data);
@@ -704,10 +703,8 @@ Click on the button below to pay ''',
       else{
         _error(context);
       }
-
-
-      var respp = await http.post('${resp['URL']}', body: postbody);
-      print(respp.body.toString());
+//      var respp = await http.post('${resp['URL']}', body: postbody);
+//      print(respp.body.toString());
     }).catchError((error) {
       print(error);
       _error(context);
