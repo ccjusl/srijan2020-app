@@ -124,7 +124,7 @@ class WorkShop1 extends StatelessWidget {
           child: Center(
             child: Container(
               height: deviceHeight,
-              width: deviceWidth * 1.5,
+              width: deviceWidth * 1.50,
               decoration: BoxDecoration(
                   image: DecorationImage(
                 image: AssetImage('assets/circles_center bg.png'),
@@ -136,11 +136,11 @@ class WorkShop1 extends StatelessWidget {
 
         //upper right circular image added
         Positioned(
-          right: -deviceWidth * 0.16,
-          top: -deviceHeight * 0.162,
+          right: -deviceWidth * 0.04,
+          top: -deviceHeight * 0.072,
           child: Container(
-            height: deviceHeight / 2.0,
-            width: deviceWidth / 1.2,
+            height: deviceHeight / 3.4,
+            width: deviceWidth / 2.4,
             // color: Colors.white,
             alignment: Alignment(0.0, 0.0),
             decoration: BoxDecoration(
@@ -154,11 +154,11 @@ class WorkShop1 extends StatelessWidget {
 
         // triangle behind srijan20 added
         Positioned(
-          right: -deviceWidth * 0.01,
-          top: -deviceHeight * 0.115,
+          right: deviceWidth * 0.028,
+          top: -deviceHeight * 0.046,
           child: Container(
-            height: deviceHeight / 1.85,
-            width: deviceWidth / 1.85,
+            height: deviceHeight / 3.35,
+            width: deviceWidth / 3.35,
             // color: Colors.white,
             alignment: Alignment(0.0, 0.0),
             decoration: BoxDecoration(
@@ -173,11 +173,11 @@ class WorkShop1 extends StatelessWidget {
 
         //srijan20 writing added
         Positioned(
-          right: deviceWidth * 0.035,
-          top: -deviceHeight * 0.005,
+          right: deviceWidth * 0.045,
+          top: deviceHeight * 0.03,
           child: Container(
-            height: deviceWidth / 2.3,
-            width: deviceWidth / 2.3,
+            height: deviceWidth / 4.6,
+            width: deviceWidth / 4.6,
             // color: Colors.white,
             alignment: Alignment(1.0, 1.0),
             decoration: BoxDecoration(
@@ -192,7 +192,7 @@ class WorkShop1 extends StatelessWidget {
         // upper left circle added
         Positioned(
           left: deviceWidth * 0.05,
-          top: deviceHeight * 0.025,
+          top: -deviceHeight * 0.09,
           child: Container(
             height: deviceHeight * 0.34,
             width: deviceWidth * 0.34,
@@ -210,7 +210,7 @@ class WorkShop1 extends StatelessWidget {
         //welcome dp added
         Positioned(
           left: deviceWidth * 0.152,
-          top: deviceHeight * 0.18,
+          top: deviceHeight * 0.061,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(30.0),
             child: Container(
@@ -234,7 +234,7 @@ class WorkShop1 extends StatelessWidget {
         //rounded rectangle added under dp***********
         Positioned(
           left: deviceWidth * 0.041,
-          top: deviceHeight * 0.258,
+          top: deviceHeight * 0.140,
           child: Container(
             height: 50.0,
             width: 140.0,
@@ -271,7 +271,7 @@ class WorkShop1 extends StatelessWidget {
 
         Positioned(
           left: deviceWidth * 0.095,
-          top: deviceHeight * 0.175,
+          top: deviceHeight * 0.025,
           child: Container(
             height: deviceHeight * 0.26,
             width: deviceWidth * 0.26,
@@ -282,6 +282,7 @@ class WorkShop1 extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12.0,
+                  decoration: TextDecoration.none,
               ),
               maxLines: 1,
             ),
@@ -289,11 +290,11 @@ class WorkShop1 extends StatelessWidget {
         ),
 
         Positioned(
-          left: 49.5,
-          top: 155.0,
+          left: deviceWidth * 0.095,
+          top: deviceHeight * 0.055,
           child: Container(
-            height: 85.0,
-            width: 85.0,
+            height: deviceHeight * 0.26,
+            width: deviceWidth * 0.26,
             // color: Colors.white,
             alignment: Alignment(0.0, 0.0),
             child: Text(
@@ -301,7 +302,7 @@ class WorkShop1 extends StatelessWidget {
               style: TextStyle(
                   color: Colors.deepOrangeAccent,
                   fontSize: 14.0,
-                  fontWeight: FontWeight.w900),
+                  fontWeight: FontWeight.w900, decoration: TextDecoration.none),
               maxLines: 1,
             ),
           ),
@@ -310,7 +311,7 @@ class WorkShop1 extends StatelessWidget {
         // boundary behind workshop
         Positioned(
           left: deviceWidth * 0.01,
-          top: deviceHeight * 0.3,
+          top: deviceHeight * 0.17,
           child: Container(
             height: deviceHeight * 0.2,
             width: deviceWidth,
@@ -328,7 +329,7 @@ class WorkShop1 extends StatelessWidget {
         //solid box behind workshop
         Positioned(
           left: deviceWidth * 0.14,
-          top: deviceHeight * 0.302,
+          top: deviceHeight * 0.172,
           child: Container(
             height: deviceHeight * 0.2,
             width: deviceWidth * 0.73,
@@ -346,10 +347,10 @@ class WorkShop1 extends StatelessWidget {
         //workshop text
         Positioned(
           left: deviceWidth * 0.2,
-          top: deviceHeight * 0.28,
+          top: deviceHeight * 0.17,
           child: Container(
-            height: deviceHeight * 0.25,
-            width: deviceHeight * 0.36,
+            height: deviceHeight * 0.20,
+            width: deviceHeight * 0.30,
             // color: Colors.white,
             alignment: Alignment(0.0, 0.0),
             decoration: BoxDecoration(
@@ -449,10 +450,10 @@ class WorkShop1 extends StatelessWidget {
         Positioned(
           right: deviceWidth * 0.3,
           //top: 290.0,
-          bottom: deviceHeight * 0.44,
+          bottom: deviceHeight * 0.59,
           child: Center(
             child: Container(
-              height: deviceHeight * 0.1,
+              height: deviceHeight * 0.07,
               width: deviceWidth * 0.4,
               //color: Colors.white,
               alignment: Alignment(0.0, 0.0),
@@ -474,11 +475,11 @@ class WorkShop1 extends StatelessWidget {
         Positioned(
           left: deviceWidth * 0.1,
           right: deviceWidth * 0.1,
-          top: deviceHeight * 0.56,
+          top: deviceHeight * 0.45,
           child: Center(
             child: Container(
-              height: deviceHeight * 0.28,
-              width: deviceWidth * 0.75,
+              height: deviceHeight * 0.38,
+              width: deviceWidth * 0.85,
 
               //color: Colors.white,
               alignment: Alignment(0.0, 0.0),
@@ -568,7 +569,7 @@ Click on the button below to pay ''',
           bottom: deviceHeight * 0.06,
           child: Center(
             child: Container(
-              height: deviceHeight * 0.1,
+              height: deviceHeight * 0.07,
               width: deviceWidth * 0.4,
               //color: Colors.white,
               alignment: Alignment(0.0, 0.0),
@@ -591,16 +592,16 @@ Click on the button below to pay ''',
                   alignment: Alignment(0.0, 0.0),
                   height: deviceHeight * 0.09,
                   width: deviceWidth * 0.5,
-                  child: Text(
-                    'CLICK HERE TO REGISTER',
-                    style: TextStyle(
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.bold,
-                      /*fontStyle: 'Raleway-Medium',*/
-                      fontSize: 10.5,
-                      decoration: TextDecoration.none,
-                      color: Colors.white,
-                    ),
+                  child: welcomeText(
+                    'REGISTER',
+//                    style: TextStyle(
+//                      fontFamily: 'Raleway',
+//                      fontWeight: FontWeight.bold,
+//                      /*fontStyle: 'Raleway-Medium',*/
+//                      fontSize: 10.5,
+//                      decoration: TextDecoration.none,
+//                      color: Colors.white,
+//                    ),
                   ),
                 ),
               ),
@@ -698,7 +699,6 @@ Click on the button below to pay ''',
           postbody[k] = v;
         }
       });
-
       // Extracting parameters from the response
       String data = json.encode(postbody);
       String formBody = Uri.encodeQueryComponent(data);
@@ -710,6 +710,11 @@ Click on the button below to pay ''',
       }
 
 //      var respp = await http.post('${resp['URL']}', body: postbody);
+//      print(respp.body.toString());
+
+
+//      var respp = await http.post('${resp['URL']}', body: postbody);
+
     }).catchError((error) {
       print(error);
       _error(context);
